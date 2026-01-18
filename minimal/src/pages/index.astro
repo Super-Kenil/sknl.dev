@@ -1,16 +1,54 @@
 ---
-import '../styles/global.css'
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CenteredLayout from '../layouts/CenteredLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1 class='text-red-500'>Astro</h1>
-	</body>
-</html>
+<BaseLayout title='Home' description='Home'>
+  <CenteredLayout>
+    <div class='card card-border'>
+      <div class='card-body'>
+        <h1 class='card-title font-extrabold'>Kenil Sudani</h1>
+        <p>Friendly Neighbourhood Developer</p>
+        <!-- <p class='text-stone-300'>Frequently Laughs, Rarely Sleeps, Helps Everyone, Never Exists Until Bug Appears, Helpful On Odd Hours, Overworked Developer, Debugs Everything, Very Enthusiastic, Panics Frequently, Repeats</p> -->
+        <a href='/about' class='link'>The Story</a>
+
+        <ul class='list rounded-box shadow-md'>
+          <li class='p-4 pb-2 text-xs opacity-60 tracking-wide'>Current Benchmarks I'm trying to surpass</li>
+
+          <li class='list-row'>
+            <div><img class='size-10 rounded-box' src='https://img.daisyui.com/images/profile/demo/1@94.webp' /></div>
+            <div>
+              <div>Dio Lupa</div>
+              <p class='list-col-wrap text-xs'>"Remaining Reason" became an instant hit, praised for its haunting sound and emotional depth. A viral performance brought it widespread recognition, making it one of Dio Lupa’s most iconic tracks.</p>
+            </div>
+            <button class='btn btn-square btn-ghost'>
+              <svg class='size-[1.2em]' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g stroke-linejoin='round' stroke-linecap='round' stroke-width='2' fill='none' stroke='currentColor'><path d='M6 3L20 12 6 21 6 3z'></path></g></svg>
+            </button>
+          </li>
+
+          <li class='list-row'>
+            <div><img class='size-10 rounded-box' src='https://img.daisyui.com/images/profile/demo/4@94.webp' /></div>
+            <div>
+              <div>Ellie Beilish</div>
+              <p class='list-col-wrap text-xs'>"Bears of a Fever" captivated audiences with its intense energy and mysterious lyrics. Its popularity skyrocketed after fans shared it widely online, earning Ellie critical acclaim.</p>
+            </div>
+            <button class='btn btn-square btn-ghost'>
+              <svg class='size-[1.2em]' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g stroke-linejoin='round' stroke-linecap='round' stroke-width='2' fill='none' stroke='currentColor'><path d='M6 3L20 12 6 21 6 3z'></path></g></svg>
+            </button>
+          </li>
+
+          <li class='list-row'>
+            <div><img class='size-10 rounded-box' src='https://img.daisyui.com/images/profile/demo/3@94.webp' /></div>
+            <div>
+              <div>Sabrino Gardener</div>
+              <p class='list-col-wrap text-xs'>"Cappuccino" quickly gained attention for its smooth melody and relatable themes. The song’s success propelled Sabrino into the spotlight, solidifying their status as a rising star.</p>
+            </div>
+            <button class='btn btn-square btn-ghost'>
+              <svg class='size-[1.2em]' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g stroke-linejoin='round' stroke-linecap='round' stroke-width='2' fill='none' stroke='currentColor'><path d='M6 3L20 12 6 21 6 3z'></path></g></svg>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </CenteredLayout>
+</BaseLayout>

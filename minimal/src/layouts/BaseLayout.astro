@@ -1,0 +1,14 @@
+---
+import MainHead from '../components/MainHead.astro';
+
+const {title, description} = Astro.props;
+---
+
+<html lang='en' class='h-full scroll-smooth'>
+  <head>
+    <MainHead title={title} description={description} />
+  </head>
+  <body class='min-h-full font-[Inter_Tight] bg-base-200 text-base-content selection:text-secondary'>
+    <slot />
+  </body>
+</html>

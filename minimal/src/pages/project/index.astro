@@ -1,0 +1,55 @@
+---
+import {getCollection} from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {Image} from 'astro:assets';
+import {Icon} from 'astro-icon/components';
+
+const projects = await getCollection('project');
+
+---
+
+<BaseLayout>
+  <main class='flex flex-col gap-4'>
+    <h1 class='text-2xl'>My Projects</h1>
+    <p>Current Benchmarks I'm trying to surpass</p>
+
+    <div class='grid grid-cols-1 md:grid-cols-2 gap-6'>
+      {
+        projects.map(({data: project}) => (
+          <div class='card bg-base-100 card-border border-base-300 card-sm'>
+            <figure class='p-2'>
+              <Image src={project.image} width={350} height={200} class='rounded-[calc(var(--radius-box)-.5rem)]' alt={project.title} />
+            </figure>
+            <div class='card-body gap-4'>
+              <h2 class='flex items-center justify-between'>
+                <span class='font-semibold text-lg'>{project.title}</span>
+                <div class='flex items-center gap-x-2'>
+                  {project.url && (
+                    <a href={project.url} target='_blank' rel='noopener noreferrer' class='btn btn-square btn-sm'>
+                      <Icon name='lucide:globe' size={16} />
+                    </a>
+                  )}
+                  {project.gitUrl && (
+                    <a href={project.gitUrl} target='_blank' rel='noopener noreferrer' class='btn btn-square btn-sm'>
+                      <Icon name='lucide:github' size={16} />
+                    </a>
+                    // <a href={project.gitUrl} target='_blank' rel='noopener noreferrer' class='btn btn-square btn-sm'>
+                    //   https://api.github.com/repos/Super-Kenil/super-detype  stargazers_count
+                    //   <Icon name='lucide:star' size={24} />
+                    // </a>
+                  )}
+                </div>
+              </h2>
+              <p>{project.description}</p>
+              <div class='flex items-center gap-x-2'>
+                {project.techStack.map((s: string) => (
+                  <span class='badge badge-xs'>{s}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </main>
+</BaseLayout>

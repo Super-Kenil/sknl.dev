@@ -1,0 +1,15 @@
+---
+import {Image} from 'astro:assets';
+import type {CollectionEntry} from 'astro:content';
+import MainHead from '../components/MainHead.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+type Props = CollectionEntry<'project'>['data'];
+
+const {title, description, image} = Astro.props;
+---
+
+<BaseLayout>
+  <Image src={image} width={120} height={120} alt={title + ' logo'} />
+  <slot />
+</BaseLayout>

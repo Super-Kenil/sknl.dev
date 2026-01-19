@@ -1,50 +1,80 @@
 ---
+import { getCollection } from 'astro:content'
+import {Image} from 'astro:assets';
+import {Icon} from 'astro-icon/components';
+
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CenteredLayout from '../layouts/CenteredLayout.astro';
+
+import npmImg from '../assets/images/npm.png';
+import base64Img from '../assets/images/base64.png';
+import lolImg from '../assets/images/lol.png';
+import todoImg from '../assets/images/todo.png';
+import birthdayWishImg from '../assets/images/birthday-wish.png';
+
 ---
 
 <BaseLayout title='Home' description='Home'>
   <CenteredLayout>
     <div class='card card-border'>
       <div class='card-body'>
-        <h1 class='card-title font-extrabold'>Kenil Sudani</h1>
+        <h1 class='card-title font-extrabold text-2xl'>Kenil Sudani</h1>
         <p>Friendly Neighbourhood Developer</p>
         <!-- <p class='text-stone-300'>Frequently Laughs, Rarely Sleeps, Helps Everyone, Never Exists Until Bug Appears, Helpful On Odd Hours, Overworked Developer, Debugs Everything, Very Enthusiastic, Panics Frequently, Repeats</p> -->
         <a href='/about' class='link'>The Story</a>
-
+        <div class='divider'></div>
+        <p>Current Benchmarks I'm trying to surpass:</p>
         <ul class='list rounded-box shadow-md'>
-          <li class='p-4 pb-2 text-xs opacity-60 tracking-wide'>Current Benchmarks I'm trying to surpass</li>
-
           <li class='list-row'>
-            <div><img class='size-10 rounded-box' src='https://img.daisyui.com/images/profile/demo/1@94.webp' /></div>
+            <div><Image src={npmImg} width={40} height={40} class='size-10 rounded-box' alt='npm logo' /></div>
             <div>
-              <div>Dio Lupa</div>
-              <p class='list-col-wrap text-xs'>"Remaining Reason" became an instant hit, praised for its haunting sound and emotional depth. A viral performance brought it widespread recognition, making it one of Dio Lupa’s most iconic tracks.</p>
+              <div><a href='https://www.npmjs.com/package/super-detype' target='_blank' rel='noopener noreferrer' class='link'>super-detype</a></div>
+              <p class='list-col-wrap text-xs'>Strips out TS definitions and syntax from your WHOLE project</p>
             </div>
             <button class='btn btn-square btn-ghost'>
-              <svg class='size-[1.2em]' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g stroke-linejoin='round' stroke-linecap='round' stroke-width='2' fill='none' stroke='currentColor'><path d='M6 3L20 12 6 21 6 3z'></path></g></svg>
+              <Icon name='lucide:chevron-right' size={24} />
             </button>
           </li>
 
           <li class='list-row'>
-            <div><img class='size-10 rounded-box' src='https://img.daisyui.com/images/profile/demo/4@94.webp' /></div>
+            <div><Image src={base64Img} width={40} height={40} class='size-10 rounded-box' alt='base64 logo' /></div>
             <div>
-              <div>Ellie Beilish</div>
-              <p class='list-col-wrap text-xs'>"Bears of a Fever" captivated audiences with its intense energy and mysterious lyrics. Its popularity skyrocketed after fans shared it widely online, earning Ellie critical acclaim.</p>
+              <div><a href='https://base64.superkenil.com' target='_blank' rel='noopener noreferrer' class='link'>Base64</a></div>
+              <p class='list-col-wrap text-xs'>Encodes and decodes base64 strings, keeps history</p>
             </div>
             <button class='btn btn-square btn-ghost'>
-              <svg class='size-[1.2em]' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g stroke-linejoin='round' stroke-linecap='round' stroke-width='2' fill='none' stroke='currentColor'><path d='M6 3L20 12 6 21 6 3z'></path></g></svg>
+              <Icon name='lucide:chevron-right' size={24} />
             </button>
           </li>
 
           <li class='list-row'>
-            <div><img class='size-10 rounded-box' src='https://img.daisyui.com/images/profile/demo/3@94.webp' /></div>
+            <div><Image src={lolImg} width={40} height={40} class='size-10 rounded-box' alt='lol logo' /></div>
             <div>
-              <div>Sabrino Gardener</div>
-              <p class='list-col-wrap text-xs'>"Cappuccino" quickly gained attention for its smooth melody and relatable themes. The song’s success propelled Sabrino into the spotlight, solidifying their status as a rising star.</p>
+              <div><a href='https://lol.superkenil.com' target='_blank' rel='noopener noreferrer' class='link'>Crack Me Up</a></div>
+              <p class='list-col-wrap text-xs'>A collection of crackers to read while webpack is generating build</p>
             </div>
             <button class='btn btn-square btn-ghost'>
-              <svg class='size-[1.2em]' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g stroke-linejoin='round' stroke-linecap='round' stroke-width='2' fill='none' stroke='currentColor'><path d='M6 3L20 12 6 21 6 3z'></path></g></svg>
+              <Icon name='lucide:chevron-right' size={24} />
+            </button>
+          </li>
+          <li class='list-row'>
+            <div><Image src={todoImg} width={40} height={40} class='size-10 rounded-box' alt='todo logo' /></div>
+            <div>
+              <div><a href='https://local-todo.superkenil.com' target='_blank' rel='noopener noreferrer' class='link'>Offline To-Do</a></div>
+              <p class='list-col-wrap text-xs'>A place to set todo/reminders in your browser using sqlite</p>
+            </div>
+            <button class='btn btn-square btn-ghost'>
+              <Icon name='lucide:chevron-right' size={24} />
+            </button>
+          </li>
+          <li class='list-row'>
+            <div><Image src={birthdayWishImg} width={40} height={40} class='size-10 rounded-box' alt='birthday wish logo' /></div>
+            <div>
+              <div><a href='https://birthday-wish.superkenil.com' target='_blank' rel='noopener noreferrer' class='link'>Birthday Wish</a></div>
+              <p class='list-col-wrap text-xs'>Wish the happiest birthday to your loved ones with a sweet 3D cake</p>
+            </div>
+            <button class='btn btn-square btn-ghost'>
+              <Icon name='lucide:chevron-right' size={24} />
             </button>
           </li>
         </ul>

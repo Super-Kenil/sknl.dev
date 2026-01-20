@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content'
+import {getCollection} from 'astro:content';
 import {Image} from 'astro:assets';
 import {Icon} from 'astro-icon/components';
 
@@ -11,7 +11,6 @@ import base64Img from '../assets/images/base64.png';
 import lolImg from '../assets/images/lol.png';
 import todoImg from '../assets/images/todo.png';
 import birthdayWishImg from '../assets/images/birthday-wish.png';
-
 ---
 
 <BaseLayout title='Home' description='Home'>
@@ -21,9 +20,24 @@ import birthdayWishImg from '../assets/images/birthday-wish.png';
         <h1 class='card-title font-extrabold text-2xl'>Kenil Sudani</h1>
         <p>Friendly Neighbourhood Developer</p>
         <!-- <p class='text-stone-300'>Frequently Laughs, Rarely Sleeps, Helps Everyone, Never Exists Until Bug Appears, Helpful On Odd Hours, Overworked Developer, Debugs Everything, Very Enthusiastic, Panics Frequently, Repeats</p> -->
-        <a href='/about' class='link'>The Story</a>
         <div class='divider'></div>
-        <p>Current Benchmarks I'm trying to surpass:</p>
+
+        <div class='overflow-x-auto'>
+          <table class='table'>
+            <tbody>
+              <tr>
+                <td><a href='/about' class='link flex items-center'>The Story <Icon name='lucide:chevron-right' size={24} /></a></td>
+              </tr>
+              <tr>
+                <td><a href='/project' class='link flex items-center'>Current Benchmarks I'm trying to surpass: <Icon name='lucide:chevron-right' size={24} /></a></td>
+              </tr>
+              <tr>
+                <td><a href='/blog' class='link flex items-center'>I tried writing <Icon name='lucide:chevron-right' size={24} /></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
         <ul class='list rounded-box shadow-md'>
           <li class='list-row'>
             <div><Image src={npmImg} width={40} height={40} class='size-10 rounded-box' alt='npm logo' /></div>

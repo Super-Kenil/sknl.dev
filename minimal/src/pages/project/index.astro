@@ -3,24 +3,27 @@ import {getCollection} from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import {Image} from 'astro:assets';
 import {Icon} from 'astro-icon/components';
+import HomeButton from '../../components/HomeButton.astro';
 
 const projects = await getCollection('project');
-
 ---
 
 <BaseLayout>
-  <main class='flex flex-col gap-4'>
-    <h1 class='text-2xl'>My Projects</h1>
-    <p>Current Benchmarks I'm trying to surpass</p>
-    <a class="link flex items-center gap-x-2" href="/"><Icon name='lucide:move-left' size={24} /> Back</a>
-
-    <div class='grid grid-cols-1 md:grid-cols-2 gap-6'>
+  <main class='flex flex-col mx-auto'>
+    <div class='grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto'>
+      <div class='flex flex-col col-span-2 gap-2'>
+        <h1 class='text-2xl'>My Projects</h1>
+        <p>Current Benchmarks I'm Trying To Surpass</p>
+        <HomeButton />
+      </div>
       {
         projects.map(({data: project}) => (
-          <div class='card bg-base-100 card-border border-base-300 card-sm'>
-            <figure class='p-2'>
-              <Image src={project.image} width={350} height={200} class='rounded-[calc(var(--radius-box)-.5rem)]' alt={project.title} />
-            </figure>
+          <div class='card card-sm card-border bg-base-100 border-base-300 w-72'>
+            <div class='avatar mx-auto p-4'>
+              <div class='w-40 rounded'>
+                <Image src={project.image} width={140} height={80} class='rounded-[calc(var(--radius-box)-.5rem)]' alt={project.title} />
+              </div>
+            </div>
             <div class='card-body gap-4'>
               <h2 class='flex items-center justify-between'>
                 <span class='font-semibold text-lg'>{project.title}</span>

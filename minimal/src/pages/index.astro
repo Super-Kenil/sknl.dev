@@ -20,25 +20,23 @@ import birthdayWishImg from '../assets/images/birthday-wish.png';
         <h1 class='card-title font-extrabold text-2xl'>Kenil Sudani</h1>
         <p>Friendly Neighbourhood Developer</p>
         <!-- <p class='text-stone-300'>Frequently Laughs, Rarely Sleeps, Helps Everyone, Never Exists Until Bug Appears, Helpful On Odd Hours, Overworked Developer, Debugs Everything, Very Enthusiastic, Panics Frequently, Repeats</p> -->
-        <div class='divider'></div>
+        <div class='divider invisible'></div>
 
-        <div class='overflow-x-auto'>
-          <table class='table'>
-            <tbody>
-              <tr>
-                <td><a href='/about' class='link flex items-center'>The Story <Icon name='lucide:chevron-right' size={24} /></a></td>
-              </tr>
-              <tr>
-                <td><a href='/project' class='link flex items-center'>Current Benchmarks I'm Trying To Surpass: <Icon name='lucide:chevron-right' size={24} /></a></td>
-              </tr>
-              <tr>
-                <td><a href='/blog' class='link flex items-center'>I Tried Writing <Icon name='lucide:chevron-right' size={24} /></a></td>
-              </tr>
-            </tbody>
-          </table>
+        <div class='overflow-x-auto w-xs max-w-dvw'>
+          <ul class='list rounded-box space-y-4'>
+            <li class='group'>
+              <a href='/about' class='link link-hover flex items-start justify-between'>The Story <Icon name='lucide:chevron-right' class='invisible group-hover:visible' size={24} /></a>
+            </li>
+            <li class='group'>
+              <a href='/project' class='link link-hover flex items-start justify-between'>Current Benchmarks I'm Trying To Surpass: <Icon name='lucide:chevron-right' class='invisible group-hover:visible' size={24} /></a>
+            </li>
+            <li class='group'>
+              <a href='/blog' class='link link-hover flex items-start justify-between'>I Tried Writing <Icon name='lucide:chevron-right' class='invisible group-hover:visible' size={24} /></a>
+            </li>
+          </ul>
         </div>
 
-        <ul class='list rounded-box shadow-md'>
+        <!-- <ul class='list rounded-box shadow-md'>
           <li class='list-row'>
             <div><Image src={npmImg} width={40} height={40} class='size-10 rounded-box' alt='npm logo' /></div>
             <div>
@@ -91,7 +89,7 @@ import birthdayWishImg from '../assets/images/birthday-wish.png';
               <Icon name='lucide:chevron-right' size={24} />
             </button>
           </li>
-        </ul>
+        </ul> -->
       </div>
     </div>
   </CenteredLayout>

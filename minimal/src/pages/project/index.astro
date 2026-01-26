@@ -5,16 +5,18 @@ import {Image} from 'astro:assets';
 import {Icon} from 'astro-icon/components';
 import HomeButton from '../../components/HomeButton.astro';
 
-const projects = await getCollection('project');
+const projects = (await getCollection('project')).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <BaseLayout>
   <main class='flex flex-col mx-auto'>
     <div class='grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto'>
-      <div class='flex flex-col col-span-2 gap-2'>
-        <h1 class='text-2xl'>My Projects</h1>
-        <p>Current Benchmarks I'm Trying To Surpass</p>
-        <HomeButton />
+      <div class='card card-border flex flex-col col-span-2 gap-2'>
+        <div class='card-body'>
+          <h1 class='text-2xl'>My Projects</h1>
+          <p>Current Benchmarks I'm Trying To Surpass</p>
+          <HomeButton className='w-fit' />
+        </div>
       </div>
       {
         projects.map(({data: project}) => (

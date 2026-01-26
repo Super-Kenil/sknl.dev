@@ -5,6 +5,7 @@ const project = defineCollection({
   loader: glob({ base: './src/content/project', pattern: '**/*.{md,mdx}' }),
   schema: ({ image }: SchemaContext) =>
     z.object({
+      order: z.number(),
       title: z.string(),
       description: z.string(),
       image: image(),

@@ -1,4 +1,5 @@
 ---
+order: 5
 title: 'Offline To-Do'
 description: 'A place to set todo/reminders in your browser using sqlite'
 image: '../../assets/images/todo.png'

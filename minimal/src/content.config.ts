@@ -15,8 +15,7 @@ const project = defineCollection({
         .transform((val: string) => val.split(','))
         .transform((val: string[]) => val.map((item: string) => item.trim()))
         .transform((val: string[]) => val.filter((item: string) => item.length > 0))
-    })
-  ,
+    }),
 })
 
 const about = defineCollection({
@@ -26,4 +25,18 @@ const about = defineCollection({
   }),
 })
 
-export const collections = { project, about }
+const gig = defineCollection({
+  loader: glob({ base: './src/content/gig', pattern: '**/*.{md,mdx}' }),
+  schema: z.object({
+    slug: z.string(),
+    role: z.string(),
+    name: z.string(),
+    timeline: z.string(),
+    techStack: z.string()
+      .transform((val: string) => val.split(','))
+      .transform((val: string[]) => val.map((item: string) => item.trim()))
+      .transform((val: string[]) => val.filter((item: string) => item.length > 0)),
+  }),
+})
+
+export const collections = { project, about, gig }

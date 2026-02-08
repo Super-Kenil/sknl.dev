@@ -1,29 +1,29 @@
 ---
-import { render } from 'astro:content'
+import {render} from 'astro:content';
 import HomeButton from '../components/HomeButton.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CenteredLayout from '../layouts/CenteredLayout.astro';
-import { getEntry } from 'astro:content'
+import {getEntry} from 'astro:content';
 
-const about = await getEntry('about', 'about')
+const about = await getEntry('about', 'about');
 if (!about) {
-  throw new Error('Could not find about entry')
+  throw new Error('Could not find about entry');
 }
-const { Content: AboutContent } = await render(about)
+const {Content: AboutContent} = await render(about);
 ---
 
-<BaseLayout title='Home' description='Home'>
+<BaseLayout title='About | Super Kenil' description='The story of Kenil Sudani - from a small village in Gujarat to SDE'>
   <CenteredLayout>
-    <div class="w-full">
+    <div class='w-full'>
       <HomeButton />
     </div>
     <div class='card card-border'>
       <div class='card-body'>
-        <h1 class='card-title font-extrabold'>{about.data.title}</h1>
-
-        <!-- <p class='text-stone-300'>Frequently Laughs, Rarely Sleeps, Helps Everyone, Never Exists Until Bug Appears, Helpful On Odd Hours, Overworked Developer, Debugs Everything, Very Enthusiastic, Panics Frequently, Repeats</p> -->
-        <h2 class='font-extrabold' aria-label='about me'>The Story</h2>
-        <AboutContent />
+        <h1 class='card-title font-extrabold text-2xl'>Kenil Sudani</h1>
+        <span class='font-extrabold text-lg block mt-4' aria-label='about me'>The Story</span>
+        <div class='prose prose-sm' transition:animate="fade">
+          <AboutContent />
+        </div>
       </div>
     </div>
   </CenteredLayout>

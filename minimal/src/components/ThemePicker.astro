@@ -1,0 +1,101 @@
+---
+import { Icon } from 'astro-icon/components';
+
+---
+
+<div class="flex items-center gap-1">
+	<!-- Random Theme Button -->
+	<button
+		id="random-theme-btn"
+		class="btn btn-ghost btn-sm btn-square"
+		aria-label="Random theme"
+		title="Random theme"
+	>
+		<Icon name="lucide:palette" size={18} />
+	</button>
+
+	<!-- Save Theme Button -->
+	<button
+		id="save-theme-btn"
+		class="btn btn-ghost btn-sm btn-square"
+		aria-label="Save theme"
+		title="Save current theme"
+	>
+		<Icon name="lucide:bookmark" size={18} class="save-icon" />
+		<Icon name="lucide:bookmark-check" size={18} class="saved-icon hidden" />
+	</button>
+</div>
+
+<script is:inline>
+	(function() {
+		const themes = [
+			'abyss', 'acid', 'aqua', 'autumn', 'black', 'bumblebee', 'business',
+			'caramellatte', 'cmyk', 'coffee', 'corporate', 'cupcake', 'cyberpunk',
+			'dark', 'dim', 'dracula', 'emerald', 'fantasy', 'forest', 'garden',
+			'halloween', 'lemonade', 'light', 'lofi', 'luxury', 'night', 'nord',
+			'pastel', 'retro', 'silk', 'sunset', 'synthwave', 'valentine', 'winter', 'wireframe'
+		];
+
+		function setTheme(theme) {
+			try {
+				const themeLink = document.getElementById('daisyui-theme');
+				if (themeLink) {
+					themeLink.href = 'https://cdn.jsdelivr.net/npm/daisyui@5/theme/' + theme + '.css';
+					document.documentElement.setAttribute('data-theme', theme);
+					window.currentTheme = theme;
+				}
+			} catch (e) {
+				console.error('setTheme error:', e);
+			}
+		}
+
+		function updateSaveIcon(saved) {
+			document.querySelectorAll('.save-icon').forEach(function(el) { el.classList.toggle('hidden', saved); });
+			document.querySelectorAll('.saved-icon').forEach(function(el) { el.classList.toggle('hidden', !saved); });
+		}
+
+		function setupThemeButtons() {
+			try {
+				var randomBtn = document.getElementById('random-theme-btn');
+				var saveBtn = document.getElementById('save-theme-btn');
+
+				if (randomBtn) {
+					var newRandomBtn = randomBtn.cloneNode(true);
+					randomBtn.parentNode.replaceChild(newRandomBtn, randomBtn);
+					newRandomBtn.addEventListener('click', function() {
+						var randomTheme = themes[Math.floor(Math.random() * themes.length)];
+						setTheme(randomTheme);
+						localStorage.removeItem('savedTheme');
+						updateSaveIcon(false);
+					});
+				}
+
+				if (saveBtn) {
+					var newSaveBtn = saveBtn.cloneNode(true);
+					saveBtn.parentNode.replaceChild(newSaveBtn, saveBtn);
+					newSaveBtn.addEventListener('click', function() {
+						var currentTheme = window.currentTheme;
+						if (currentTheme) {
+							localStorage.setItem('savedTheme', currentTheme);
+							updateSaveIcon(true);
+						}
+					});
+				}
+
+				var savedTheme = localStorage.getItem('savedTheme');
+				var currentTheme = window.currentTheme;
+				updateSaveIcon(savedTheme && savedTheme === currentTheme);
+			} catch (e) {
+				console.error('setupThemeButtons error:', e);
+			}
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', setupThemeButtons);
+		} else {
+			setupThemeButtons();
+		}
+
+		document.addEventListener('astro:page-load', setupThemeButtons);
+	})();
+</script>

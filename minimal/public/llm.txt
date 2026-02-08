@@ -1,0 +1,61 @@
+# Kenil Sudani aka Super Kenil
+
+> Kenil Sudani is a developer from Gujarat, India with 4+ years of experience.
+
+## About
+
+Kenil grew up in a small village in southern Gujarat, India. He's loved computers since getting an AMD Athlon 2 PC at age 10. Started with gaming, discovered the internet in 2014, and began serious programming in 2020 during his bachelor's degree.
+
+He interned at Genxel Technology in mid-2022 while pursuing his Master's, building an NFT Marketplace from scratch. Later joined Coderthemes as Staff Engineer / Front End Developer, learning TypeScript, Angular, Vue, design patterns, SOLID principles, and Linux.
+
+Currently building automation tools (AI and non-AI). Codes in VSCode with Copilot turned off to stay sharp, but uses AI chat platforms for debugging when stuck.
+
+## Skills
+
+- TypeScript, JavaScript, React, Next.js, Angular, Vue, NuxtJs
+- Node.js, Laravel, Django, Sveltekit
+- React Native, PWAs
+- Tailwind CSS, Bootstrap
+- Linux, automation tools
+
+## Open Source Projects
+
+1. **super-detype** - CLI tool that strips TypeScript from entire projects. Useful for creating JS examples.
+   - npm: https://www.npmjs.com/package/super-detype
+   - GitHub: https://github.com/Super-Kenil/super-detype
+
+2. **Base64** - Simple encoder/decoder with conversion history.
+   - Live: https://base64.superkenil.com
+   - GitHub: https://github.com/Super-Kenil/base64
+
+3. **Birthday Wish** - 3D animated cake birthday wisher built in React.
+   - Live: https://birthday-wish.superkenil.com
+   - GitHub: https://github.com/Super-Kenil/birthday-wish
+
+4. **Crack Me Up** - Developer jokes for those webpack build pauses.
+   - Live: https://lol.superkenil.com
+   - GitHub: https://github.com/Super-Kenil/crack-me-up
+
+5. **Offline To-Do** - PWA todo app using browser SQLite with AI features.
+   - Live: https://local-todo.superkenil.com
+   - GitHub: https://github.com/Super-Kenil/offline-todo
+
+## Work Experience
+
+### Coderthemes Design LLP (2023-2024)
+Staff Engineer / Front End Developer
+Tech: TypeScript, React, NextJs, Angular, Vue, NuxtJs, Laravel, Django, Sveltekit, NodeJs, Tailwindcss, Bootstrap, Linux
+
+### Genxel Technology (2022-2023)
+Full Stack Developer
+Tech: NextJs, Web3, Solidity, React Native, NodeJs, Sanity, MySQL
+
+## Contact
+
+- Website: https://superkenil.com
+- GitHub: https://github.com/Super-Kenil
+- X/Twitter: https://x.com/super_kenil
+- LinkedIn: https://in.linkedin.com/in/super-kenil
+- Bluesky: https://bsky.app/profile/superkenil.com
+- npm: https://www.npmjs.com/~super-kenil
+- Email: contact@superkenil.com

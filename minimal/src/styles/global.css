@@ -1,4 +1,28 @@
 @import "tailwindcss";
-@plugin "daisyui" {
-  themes: garden --default;
+@plugin "@tailwindcss/typography";
+@plugin "daisyui";
+@plugin "tailwind-scrollbar";
+
+/* Minimal scrollbar styling */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(var(--bc) / 0.2) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(var(--bc) / 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(var(--bc) / 0.4);
 }

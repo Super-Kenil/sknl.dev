@@ -5,6 +5,7 @@ import {Icon} from 'astro-icon/components';
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CenteredLayout from '../layouts/CenteredLayout.astro';
+import ThemePicker from '../components/ThemePicker.astro';
 
 import npmImg from '../assets/images/npm.png';
 import base64Img from '../assets/images/base64.png';
@@ -13,83 +14,65 @@ import todoImg from '../assets/images/todo.png';
 import birthdayWishImg from '../assets/images/birthday-wish.png';
 ---
 
-<BaseLayout title='Home' description='Home'>
+<BaseLayout title='Super Kenil (Kenil Sudani)' description='Full-stack developer from Gujarat, India. Building tools that solve real problems.'>
   <CenteredLayout>
     <div class='card card-border'>
       <div class='card-body'>
-        <h1 class='card-title font-extrabold text-2xl'>Kenil Sudani</h1>
-        <p>Friendly Neighbourhood Nerd</p>
-        <!-- <p class='text-stone-300'>Frequently Laughs, Rarely Sleeps, Helps Everyone, Never Exists Until Bug Appears, Helpful On Odd Hours, Overworked Developer, Debugs Everything, Very Enthusiastic, Panics Frequently, Repeats</p> -->
+        <div class='flex items-center justify-between'>
+          <h1 class='card-title font-extrabold text-2xl'>Kenil Sudani</h1>
+          <ThemePicker />
+        </div>
+        <p transition:animate="fade">Friendly Neighbourhood Nerd</p>
+
+        <p class='text-sm opacity-70 mt-2' transition:animate="fade">Full-stack developer from Gujarat, India. I build tools that solve real problems and occasionally write about what I learn. Mostly posting on <a href='https://x.com/super_kenil' target='_blank' rel='noopener noreferrer' class='link'>X (Twitter)</a>.</p>
+
         <div class='divider invisible'></div>
 
         <div class='overflow-x-auto w-xs max-w-dvw'>
           <ul class='list rounded-box space-y-4'>
             <li class='group'>
-              <a href='/about' class='link link-hover flex items-start justify-between'>The Story <Icon name='lucide:chevron-right' class='invisible group-hover:visible' size={24} /></a>
+              <a href='/about' class='link link-hover flex items-start justify-between'>
+                <span>The Story</span>
+                <Icon name='lucide:chevron-right' class='invisible group-hover:visible' size={24} />
+              </a>
             </li>
             <li class='group'>
-              <a href='/project' class='link link-hover flex items-start justify-between'>Current Benchmarks I'm Trying To Surpass: <Icon name='lucide:chevron-right' class='invisible group-hover:visible' size={24} /></a>
+              <a href='/project' class='link link-hover flex items-start justify-between'>
+                <span transition:name="project-title">Current Benchmarks I'm Trying To Surpass</span>
+                <Icon name='lucide:chevron-right' class='invisible group-hover:visible' size={24} />
+              </a>
             </li>
             <li class='group'>
-              <a href='/blog' class='link link-hover flex items-start justify-between'>I Tried Writing <Icon name='lucide:chevron-right' class='invisible group-hover:visible' size={24} /></a>
+              <a href='/blog' class='link link-hover flex items-start justify-between'>
+                <span transition:name="blog-title">I Tried Writing</span>
+                <Icon name='lucide:chevron-right' class='invisible group-hover:visible' size={24} />
+              </a>
             </li>
           </ul>
         </div>
 
-        <!-- <ul class='list rounded-box shadow-md'>
-          <li class='list-row'>
-            <div><Image src={npmImg} width={40} height={40} class='size-10 rounded-box' alt='npm logo' /></div>
-            <div>
-              <div><a href='https://www.npmjs.com/package/super-detype' target='_blank' rel='noopener noreferrer' class='link'>super-detype</a></div>
-              <p class='list-col-wrap text-xs'>Strips out TS definitions and syntax from your WHOLE project</p>
-            </div>
-            <button class='btn btn-square btn-ghost'>
-              <Icon name='lucide:chevron-right' size={24} />
-            </button>
-          </li>
+        <div class='divider'></div>
 
-          <li class='list-row'>
-            <div><Image src={base64Img} width={40} height={40} class='size-10 rounded-box' alt='base64 logo' /></div>
-            <div>
-              <div><a href='https://base64.superkenil.com' target='_blank' rel='noopener noreferrer' class='link'>Base64</a></div>
-              <p class='list-col-wrap text-xs'>Encodes and decodes base64 strings, keeps history</p>
-            </div>
-            <button class='btn btn-square btn-ghost'>
-              <Icon name='lucide:chevron-right' size={24} />
-            </button>
-          </li>
-
-          <li class='list-row'>
-            <div><Image src={lolImg} width={40} height={40} class='size-10 rounded-box' alt='lol logo' /></div>
-            <div>
-              <div><a href='https://lol.superkenil.com' target='_blank' rel='noopener noreferrer' class='link'>Crack Me Up</a></div>
-              <p class='list-col-wrap text-xs'>A collection of crackers to read while webpack is generating build</p>
-            </div>
-            <button class='btn btn-square btn-ghost'>
-              <Icon name='lucide:chevron-right' size={24} />
-            </button>
-          </li>
-          <li class='list-row'>
-            <div><Image src={todoImg} width={40} height={40} class='size-10 rounded-box' alt='todo logo' /></div>
-            <div>
-              <div><a href='https://local-todo.superkenil.com' target='_blank' rel='noopener noreferrer' class='link'>Offline To-Do</a></div>
-              <p class='list-col-wrap text-xs'>A place to set todo/reminders in your browser using sqlite</p>
-            </div>
-            <button class='btn btn-square btn-ghost'>
-              <Icon name='lucide:chevron-right' size={24} />
-            </button>
-          </li>
-          <li class='list-row'>
-            <div><Image src={birthdayWishImg} width={40} height={40} class='size-10 rounded-box' alt='birthday wish logo' /></div>
-            <div>
-              <div><a href='https://birthday-wish.superkenil.com' target='_blank' rel='noopener noreferrer' class='link'>Birthday Wish</a></div>
-              <p class='list-col-wrap text-xs'>Wish the happiest birthday to your loved ones with a sweet 3D cake</p>
-            </div>
-            <button class='btn btn-square btn-ghost'>
-              <Icon name='lucide:chevron-right' size={24} />
-            </button>
-          </li>
-        </ul> -->
+        <div class='flex flex-wrap gap-3 justify-center' transition:animate="fade">
+          <a href='https://github.com/Super-Kenil/' target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='GitHub'>
+            <Icon name='lucide:github' size={18} />
+          </a>
+          <a href='https://x.com/super_kenil' target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='X (Twitter)'>
+            <Icon name='lucide:twitter' size={18} />
+          </a>
+          <a href='https://in.linkedin.com/in/super-kenil' target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='LinkedIn'>
+            <Icon name='lucide:linkedin' size={18} />
+          </a>
+          <a href='https://bsky.app/profile/superkenil.com' target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='Bluesky'>
+            <Icon name='lucide:cloud' size={18} />
+          </a>
+          <a href='https://www.npmjs.com/~super-kenil?activeTab=packages' target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='npm'>
+            <Icon name='lucide:package' size={18} />
+          </a>
+          <a href='mailto:contact@superkenil.com' class='btn btn-sm btn-ghost' aria-label='Email'>
+            <Icon name='lucide:mail' size={18} />
+          </a>
+        </div>
       </div>
     </div>
   </CenteredLayout>

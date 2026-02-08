@@ -13,12 +13,15 @@ const projects = (await getCollection('project')).sort((a, b) => a.data.order - 
     <div class='grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto'>
       <div class='flex flex-col col-span-2 gap-2'>
         <h1 class='text-2xl'>My Projects</h1>
-        <p>Current Benchmarks I'm Trying To Surpass</p>
+        <p transition:name="project-title">Current Benchmarks I'm Trying To Surpass</p>
         <HomeButton className='w-fit mt-6' />
       </div>
       {
-        projects.map(({data: project}) => (
-          <div class='card card-sm card-border bg-base-100 border-base-300 w-72'>
+        projects.map(({data: project}, index) => (
+          <div
+            class='card card-sm card-border bg-base-100 border-base-300 w-72 animate-slideup'
+            style={`animation-delay: ${index * 100}ms`}
+          >
             <div class='avatar mx-auto p-4'>
               <div class='w-40 rounded'>
                 <Image src={project.image} width={140} height={80} class='rounded-[calc(var(--radius-box)-.5rem)]' alt={project.title} />
@@ -37,10 +40,6 @@ const projects = (await getCollection('project')).sort((a, b) => a.data.order - 
                     <a href={project.gitUrl} target='_blank' rel='noopener noreferrer' class='btn btn-square btn-sm'>
                       <Icon name='lucide:github' size={16} />
                     </a>
-                    // <a href={project.gitUrl} target='_blank' rel='noopener noreferrer' class='btn btn-square btn-sm'>
-                    //   https://api.github.com/repos/Super-Kenil/super-detype  stargazers_count
-                    //   <Icon name='lucide:star' size={24} />
-                    // </a>
                   )}
                 </div>
               </h2>
@@ -57,3 +56,21 @@ const projects = (await getCollection('project')).sort((a, b) => a.data.order - 
     </div>
   </main>
 </BaseLayout>
+
+<style>
+  @keyframes slideup {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slideup {
+    opacity: 0;
+    animation: slideup 0.6s ease-out forwards;
+  }
+</style>

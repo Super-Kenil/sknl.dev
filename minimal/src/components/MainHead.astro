@@ -7,38 +7,132 @@ interface Props {
 }
 
 const {
-	title = 'Super Kenil: Personal Site',
-	description = 'The personal site of Super Kenil',
+	title = 'Super Kenil (Kenil Sudani)',
+	description = 'A developer from Gujarat, India. Building tools that solve real problems.',
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, 'https://superkenil.com');
+const siteURL = 'https://superkenil.com';
+
+// JSON-LD structured data
+const jsonLD = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	"name": "Kenil Sudani",
+	"alternateName": "Super Kenil",
+	"url": siteURL,
+	"jobTitle": "Developer",
+	"worksFor": {
+		"@type": "Organization",
+		"name": "Freelance"
+	},
+	"sameAs": [
+		"https://github.com/Super-Kenil",
+		"https://x.com/super_kenil",
+		"https://linkedin.com/in/super-kenil",
+		"https://bsky.app/profile/superkenil.com",
+		"https://www.npmjs.com/~super-kenil"
+	],
+	"address": {
+		"@type": "PostalAddress",
+		"addressRegion": "Gujarat",
+		"addressCountry": "India"
+	}
+};
 ---
 
 <meta charset="UTF-8" />
-<meta name="description" property="og:description" content={description} />
-<meta name="viewport" content="width=device-width" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="generator" content={Astro.generator} />
-<title>{title}</title>
+<meta name="robots" content="index, follow" />
+<meta name="googlebot" content="index, follow" />
+<meta name="theme-color" content="#1a1a2e" />
+<meta name="color-scheme" content="light dark" />
 
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<meta name="author" content="Kenil Sudani" />
+<meta name="keywords" content="Kenil Sudani, Super Kenil, developer, full-stack, Gujarat, India, JavaScript, TypeScript, web development" />
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:site_name" content="Super Kenil" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@super_kenil" />
+<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:creator" content="@super_kenil" />
+
+<!-- Favicon & Icons -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/favicon.svg" />
+
+<!-- Sitemap & Discovery -->
+<link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+<link rel="author" href="/llm.txt" />
+
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-<script is:inline>
-	// This code is inlined in the head to make dark mode instant & blocking.
-	const getThemePreference = () => {
-		if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-			return localStorage.getItem('theme');
-		}
-		return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-	};
-	const isDark = getThemePreference() === 'dark';
-	document.documentElement.classList[isDark ? 'add' : 'remove']('theme-dark');
 
-	if (typeof localStorage !== 'undefined') {
-		// Watch the document element and persist user preference when it changes.
-		const observer = new MutationObserver(() => {
-			const isDark = document.documentElement.classList.contains('theme-dark');
-			localStorage.setItem('theme', isDark ? 'dark' : 'light');
-		});
-		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify(jsonLD)} />
+
+<link
+	id="daisyui-theme"
+	rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/daisyui@5/theme/garden.css"
+	data-astro-transition-persist="theme-link"
+/>
+
+<script is:inline>
+	var DAISYUI_THEMES = [
+		'abyss', 'acid', 'aqua', 'autumn', 'black', 'bumblebee', 'business',
+		'caramellatte', 'cmyk', 'coffee', 'corporate', 'cupcake', 'cyberpunk',
+		'dark', 'dim', 'dracula', 'emerald', 'fantasy', 'forest', 'garden',
+		'halloween', 'lemonade', 'light', 'lofi', 'luxury', 'night', 'nord',
+		'pastel', 'retro', 'silk', 'sunset', 'synthwave', 'valentine', 'winter', 'wireframe'
+	];
+
+	function applyTheme(theme) {
+		var themeLink = document.getElementById('daisyui-theme');
+		if (themeLink) {
+			themeLink.href = 'https://cdn.jsdelivr.net/npm/daisyui@5/theme/' + theme + '.css';
+		}
+		document.documentElement.setAttribute('data-theme', theme);
+		window.currentTheme = theme;
 	}
+
+	function initTheme() {
+		var savedTheme = localStorage.getItem('savedTheme');
+		if (savedTheme && DAISYUI_THEMES.indexOf(savedTheme) !== -1) {
+			applyTheme(savedTheme);
+			return;
+		}
+
+		if (window.currentTheme && DAISYUI_THEMES.indexOf(window.currentTheme) !== -1) {
+			applyTheme(window.currentTheme);
+			return;
+		}
+		var randomTheme = DAISYUI_THEMES[Math.floor(Math.random() * DAISYUI_THEMES.length)];
+		applyTheme(randomTheme);
+	}
+
+	initTheme();
+	document.addEventListener('astro:after-swap', function() {
+		if (window.currentTheme) {
+			applyTheme(window.currentTheme);
+		}
+	});
 </script>

@@ -1,0 +1,63 @@
+---
+import {getCollection} from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HomeButton from '../../components/HomeButton.astro';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title='Blog | Super Kenil' description='Thoughts on JavaScript, development tools, and lessons learned along the way.'>
+  <main class='flex flex-col mx-auto py-12 max-w-2xl px-4'>
+    <div class='flex flex-col gap-2 mb-8'>
+      <h1 class='text-2xl font-bold' transition:name="blog-title">I Tried Writing</h1>
+      <p class='opacity-70' transition:animate="fade">Stuff I learned, mistakes I made, things that worked.</p>
+      <HomeButton className='w-fit mt-4' />
+    </div>
+
+    <ul class='space-y-6'>
+      {posts.map((post, index) => (
+        <li
+          class='card card-border card-compact animate-slideup'
+          style={`animation-delay: ${index * 100}ms`}
+        >
+          <div class='card-body'>
+            <a href={`/blog/${post.id}`} class='card-title link link-hover text-lg'>
+              <span transition:name={`blog-post-${post.id}`}>{post.data.title}</span>
+            </a>
+            <p class='text-sm opacity-70' transition:name={`blog-desc-${post.id}`}>{post.data.description}</p>
+            <div class='flex items-center gap-2 mt-2'>
+              <time datetime={post.data.date.toISOString()} class='text-xs opacity-50' transition:name={`blog-date-${post.id}`}>
+                {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+              </time>
+              {post.data.tags && (
+                <div class='flex gap-1' transition:name={`blog-tags-${post.id}`}>
+                  {post.data.tags.map((tag: string) => (
+                    <span class='badge badge-xs'>{tag}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </main>
+</BaseLayout>
+
+<style>
+  @keyframes slideup {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slideup {
+    opacity: 0;
+    animation: slideup 0.6s ease-out forwards;
+  }
+</style>

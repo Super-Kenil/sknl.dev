@@ -12,9 +12,9 @@ const projects = (await getCollection('project')).sort((a, b) => a.data.order - 
   <main class='flex flex-col mx-auto py-12'>
     <div class='grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto'>
       <div class='flex flex-col col-span-2 gap-2'>
+        <HomeButton className='w-fit mt-6 mb-2' />
         <h1 class='text-2xl'>My Projects</h1>
         <p transition:name="project-title">Current Benchmarks I'm Trying To Surpass</p>
-        <HomeButton className='w-fit mt-6' />
       </div>
       {
         projects.map(({data: project}, index) => (

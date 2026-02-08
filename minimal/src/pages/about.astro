@@ -14,11 +14,9 @@ const {Content: AboutContent} = await render(about);
 
 <BaseLayout title='About | Super Kenil' description='The story of Kenil Sudani - from a small village in Gujarat to SDE'>
   <CenteredLayout>
-    <div class='w-full'>
-      <HomeButton />
-    </div>
     <div class='card card-border'>
       <div class='card-body'>
+        <HomeButton className='mb-2' />
         <h1 class='card-title font-extrabold text-2xl'>Kenil Sudani</h1>
         <span class='font-extrabold text-lg block mt-4' aria-label='about me'>The Story</span>
         <div class='prose prose-sm' transition:animate="fade">

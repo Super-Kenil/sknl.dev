@@ -1,17 +1,9 @@
 ---
-import {getCollection} from 'astro:content';
-import {Image} from 'astro:assets';
 import {Icon} from 'astro-icon/components';
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CenteredLayout from '../layouts/CenteredLayout.astro';
 import ThemePicker from '../components/ThemePicker.astro';
-
-import npmImg from '../assets/images/npm.png';
-import base64Img from '../assets/images/base64.png';
-import lolImg from '../assets/images/lol.png';
-import todoImg from '../assets/images/todo.png';
-import birthdayWishImg from '../assets/images/birthday-wish.png';
 ---
 
 <BaseLayout title='Super Kenil (Kenil Sudani)' description='Full-stack developer from Gujarat, India. Building tools that solve real problems.'>
@@ -24,7 +16,7 @@ import birthdayWishImg from '../assets/images/birthday-wish.png';
         </div>
         <p transition:animate="fade">Friendly Neighbourhood Nerd</p>
 
-        <p class='text-sm opacity-70 mt-2' transition:animate="fade">Full-stack developer from Gujarat, India. I build tools that solve real problems and occasionally write about what I learn. Mostly posting on <a href='https://x.com/super_kenil' target='_blank' rel='noopener noreferrer' class='link'>X (Twitter)</a>.</p>
+        <p class='text-sm opacity-75 mt-2' transition:animate="fade">Full-stack developer from Gujarat. I build tools that solve real problems and occasionally write about what I learn. Mostly posting on <a href='https://x.com/super_kenil' target='_blank' rel='noopener noreferrer' class='link'>X (Twitter)</a>.</p>
 
         <div class='divider invisible'></div>
 
@@ -33,19 +25,19 @@ import birthdayWishImg from '../assets/images/birthday-wish.png';
             <li class='group'>
               <a href='/about' class='link link-hover flex items-start justify-between'>
                 <span>The Story</span>
-                <Icon name='lucide:chevron-right' class='invisible group-hover:visible' size={24} />
+                <Icon name='lucide:chevron-right' class='invisible group-hover:visible opacity-70' size={16} />
               </a>
             </li>
             <li class='group'>
               <a href='/project' class='link link-hover flex items-start justify-between'>
                 <span transition:name="project-title">Current Benchmarks I'm Trying To Surpass</span>
-                <Icon name='lucide:chevron-right' class='invisible group-hover:visible' size={24} />
+                <Icon name='lucide:chevron-right' class='invisible group-hover:visible opacity-70' size={16} />
               </a>
             </li>
             <li class='group'>
               <a href='/blog' class='link link-hover flex items-start justify-between'>
                 <span transition:name="blog-title">I Tried Writing</span>
-                <Icon name='lucide:chevron-right' class='invisible group-hover:visible' size={24} />
+                <Icon name='lucide:chevron-right' class='invisible group-hover:visible opacity-70' size={16} />
               </a>
             </li>
           </ul>
@@ -58,16 +50,16 @@ import birthdayWishImg from '../assets/images/birthday-wish.png';
             <Icon name='lucide:github' size={18} />
           </a>
           <a href='https://x.com/super_kenil' target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='X (Twitter)'>
-            <Icon name='lucide:twitter' size={18} />
+            <Icon name='ri:twitter-x-fill' size={18} />
           </a>
           <a href='https://in.linkedin.com/in/super-kenil' target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='LinkedIn'>
             <Icon name='lucide:linkedin' size={18} />
           </a>
           <a href='https://bsky.app/profile/superkenil.com' target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='Bluesky'>
-            <Icon name='lucide:cloud' size={18} />
+            <Icon name='ri:bluesky-line' size={18} />
           </a>
           <a href='https://www.npmjs.com/~super-kenil?activeTab=packages' target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='npm'>
-            <Icon name='lucide:package' size={18} />
+            <Icon name='ri:npmjs-line' size={18} />
           </a>
           <a href='mailto:contact@superkenil.com' class='btn btn-sm btn-ghost' aria-label='Email'>
             <Icon name='lucide:mail' size={18} />

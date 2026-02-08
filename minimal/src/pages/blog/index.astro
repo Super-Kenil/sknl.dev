@@ -9,9 +9,9 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
 <BaseLayout title='Blog | Super Kenil' description='Thoughts on JavaScript, development tools, and lessons learned along the way.'>
   <main class='flex flex-col mx-auto py-12 max-w-2xl px-4'>
     <div class='flex flex-col gap-2 mb-8'>
+      <HomeButton className='w-fit mt-4 mb-2' />
       <h1 class='text-2xl font-bold' transition:name="blog-title">I Tried Writing</h1>
       <p class='opacity-70' transition:animate="fade">Stuff I learned, mistakes I made, things that worked.</p>
-      <HomeButton className='w-fit mt-4' />
     </div>
 
     <ul class='space-y-6'>
@@ -20,7 +20,7 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
           class='card card-border card-compact animate-slideup'
           style={`animation-delay: ${index * 100}ms`}
         >
-          <div class='card-body'>
+          <div class='card-body px-0'>
             <a href={`/blog/${post.id}`} class='card-title link link-hover text-lg'>
               <span transition:name={`blog-post-${post.id}`}>{post.data.title}</span>
             </a>

@@ -4,6 +4,6 @@ import {Icon} from 'astro-icon/components';
 const {className = ''} = Astro.props;
 ---
 
-<a href='/' class={`btn${className!== '' ? ` ${className}` : ''}`}>
-  <Icon name='lucide:arrow-left' size={24} /> Back
+<a href='/' class={`link link-hover flex items-center gap-x-1 text-sm${className!== '' ? ` ${className}` : ''}`}>
+  <Icon name='lucide:arrow-left' size={16} /> Back
 </a>

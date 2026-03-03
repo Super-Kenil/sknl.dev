@@ -4,7 +4,7 @@
 
 ## About
 
-Kenil grew up in a small village in southern Gujarat, India. He's loved computers since getting an AMD Athlon 2 PC at age 10. Started with gaming, discovered the internet in 2014, and began serious programming in 2020 during his bachelor's degree.
+Kenil grew up in a small town in southern Gujarat, India. He's loved computers since getting an AMD Athlon 2 PC at age 10. Started with gaming, discovered the internet in 2014, and began serious programming in 2020 during his bachelor's degree.
 
 He interned at Genxel Technology in mid-2022 while pursuing his Master's, building an NFT Marketplace from scratch. Later joined Coderthemes as Staff Engineer / Front End Developer, learning TypeScript, Angular, Vue, design patterns, SOLID principles, and Linux.
 

@@ -16,7 +16,17 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BaseLayout title={`${post.data.title} | Super Kenil`} description={post.data.description}>
+<BaseLayout
+  title={`${post.data.title} | Super Kenil`}
+  description={post.data.description}
+  ogType="article"
+  ogImage={`/blog/${post.id}.png`}
+  articleData={{
+    publishDate: post.data.date,
+    tags: post.data.tags,
+    author: "Kenil Sudani"
+  }}
+>
   <main class='flex flex-col mx-auto py-12 max-w-2xl px-4'>
     <article>
       <header class='mb-8'>

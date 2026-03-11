@@ -22,8 +22,8 @@ const projects = (await getCollection('project')).sort((a, b) => a.data.order - 
             style={`animation-delay: ${index * 100}ms`}
           >
             <div class='avatar mx-auto p-4'>
-              <div class='w-40 rounded'>
-                <Image src={project.image} width={140} height={80} class='rounded-[calc(var(--radius-box)-.5rem)]' alt={project.title} />
+              <div class='w-40 rounded flex items-center justify-center'>
+                <Image src={project.image} width={160} class='rounded-[calc(var(--radius-box)-.5rem)] object-contain w-full' alt={project.title} />
               </div>
             </div>
             <div class='card-body gap-4'>

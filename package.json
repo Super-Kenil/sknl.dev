@@ -11,21 +11,23 @@
     "deploy": "astro build && npx wrangler pages deploy dist"
   },
   "dependencies": {
-    "@astrojs/react": "^4.4.2",
-    "@astrojs/sitemap": "^3.7.0",
+    "@astrojs/react": "^5.0.0",
+    "@astrojs/sitemap": "^3.7.1",
     "@tailwindcss/typography": "^0.5.19",
-    "@tailwindcss/vite": "^4.1.18",
-    "astro": "^5.16.11",
+    "@tailwindcss/vite": "^4.2.1",
+    "astro": "^6.0.1",
     "astro-icon": "^1.1.5",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "tailwindcss": "^4.1.18"
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwindcss": "^4.2.1",
+    "satori": "^0.25.0",
+    "@resvg/resvg-js": "^2.6.2"
   },
   "devDependencies": {
-    "daisyui": "^5.5.14",
-    "@types/react": "^19.2.8",
+    "daisyui": "^5.5.19",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@iconify-json/ri": "^1.2.9",
-    "@iconify-json/lucide": "^1.2.86"
+    "@iconify-json/ri": "^1.2.10",
+    "@iconify-json/lucide": "^1.2.96"
   }
 }

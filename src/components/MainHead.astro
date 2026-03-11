@@ -4,18 +4,28 @@ import '../styles/global.css';
 type Props = {
 	title?: string | undefined;
 	description?: string | undefined;
+	ogType?: 'website' | 'article' | undefined;
+	ogImage?: string | undefined;
+	articleData?: {
+		publishDate: Date;
+		tags?: string[];
+		author?: string;
+	} | undefined;
 }
 
 const {
 	title = 'Super Kenil (Kenil Sudani)',
 	description = 'A developer from Gujarat, India. Building tools that solve real problems.',
+	ogType = 'website',
+	ogImage = '/og-image.png',
+	articleData,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, 'https://superkenil.com');
 const siteURL = 'https://superkenil.com';
 
 // JSON-LD structured data
-const jsonLD = {
+let jsonLD: any = {
 	"@context": "https://schema.org",
 	"@type": "Person",
 	"name": "Kenil Sudani",
@@ -39,6 +49,31 @@ const jsonLD = {
 		"addressCountry": "India"
 	}
 };
+
+if (ogType === 'article' && articleData) {
+	jsonLD = {
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		"headline": title,
+		"description": description,
+		"author": {
+			"@type": "Person",
+			"name": articleData.author || "Kenil Sudani",
+			"url": siteURL
+		},
+		"datePublished": articleData.publishDate.toISOString(),
+		"url": canonicalURL.toString(),
+		"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": canonicalURL.toString()
+		},
+		"publisher": {
+			"@type": "Person",
+			"name": "Kenil Sudani",
+			"url": siteURL
+		}
+	};
+}
 ---
 
 <meta charset="UTF-8" />
@@ -58,19 +93,34 @@ const jsonLD = {
 <link rel="canonical" href={canonicalURL} />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
+<meta property="og:type" content={ogType} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:site_name" content="Super Kenil" />
 <meta property="og:locale" content="en_US" />
+<meta property="og:image" content={new URL(ogImage, siteURL)} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={title} />
+
+{ogType === 'article' && articleData && (
+    <>
+        <meta property="article:published_time" content={articleData.publishDate.toISOString()} />
+        {articleData.author && <meta property="article:author" content={articleData.author} />}
+        {articleData.tags?.map(tag => (
+            <meta property="article:tag" content={tag} />
+        ))}
+    </>
+)}
 
 <!-- Twitter -->
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@super_kenil" />
 <meta name="twitter:url" content={canonicalURL} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={new URL(ogImage, siteURL)} />
 <meta name="twitter:creator" content="@super_kenil" />
 
 <!-- Favicon & Icons -->

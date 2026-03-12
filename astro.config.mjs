@@ -9,7 +9,9 @@ export default defineConfig({
   site: 'https://superkenil.com',
   output: 'static',
   integrations: [icon(), sitemap()],
-
+  redirects: {
+    '/resume': '/Kenil-Sudani-Resume.pdf'
+  },
   vite: {
     plugins: [tailwindcss()]
   }

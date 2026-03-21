@@ -1,5 +1,5 @@
 {
-  "name": "superkenil.com",
+  "name": "sknl.dev",
   "type": "module",
   "private": true,
   "version": "1.0.0",
@@ -11,15 +11,15 @@
     "deploy": "astro build && npx wrangler pages deploy dist"
   },
   "dependencies": {
-    "@astrojs/react": "^5.0.0",
+    "@astrojs/react": "^5.0.1",
     "@astrojs/sitemap": "^3.7.1",
     "@tailwindcss/typography": "^0.5.19",
-    "@tailwindcss/vite": "^4.2.1",
-    "astro": "^6.0.3",
+    "@tailwindcss/vite": "^4.2.2",
+    "astro": "^6.0.8",
     "astro-icon": "^1.1.5",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "tailwindcss": "^4.2.1",
+    "tailwindcss": "^4.2.2",
     "satori": "^0.25.0",
     "@resvg/resvg-js": "^2.6.2"
   },
@@ -28,6 +28,6 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@iconify-json/ri": "^1.2.10",
-    "@iconify-json/lucide": "^1.2.96"
+    "@iconify-json/lucide": "^1.2.98"
   }
 }

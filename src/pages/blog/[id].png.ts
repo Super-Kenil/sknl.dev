@@ -186,7 +186,7 @@ export const GET = async ({ props }: { props: any }) => {
 																	opacity: 0.7,
 																	letterSpacing: '0.01em',
 																},
-																children: 'superkenil.com',
+																children: 'sknl.dev',
 															},
 														},
 													],

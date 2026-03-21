@@ -3,7 +3,7 @@ order: 5
 title: 'Offline To-Do'
 description: 'A place to set todo/reminders in your browser using sqlite'
 image: '../../assets/images/todo.png'
-url: 'https://local-todo.superkenil.com'
+url: 'https://local-todo.sknl.dev'
 gitUrl: 'https://github.com/Super-Kenil/offline-todo'
 techStack: 'SQLite,PWA,AI'
 ---

@@ -3,7 +3,7 @@ order: 1
 title: 'super-detype'
 description: 'Strips out TS definitions and syntax from your WHOLE project'
 image: '../../assets/images/npm.png'
-url: 'https://super-detype.superkenil.com'
+url: 'https://super-detype.sknl.dev'
 gitUrl: 'https://github.com/Super-Kenil/super-detype'
 techStack: 'Typescript,fs,Babel,Esbuild'
 ---

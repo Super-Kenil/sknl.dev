@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 export const GET: APIRoute = async () => {
   const posts = await getCollection('blog');
 
-  const site = 'https://superkenil.com';
+  const site = 'https://sknl.dev';
 
   const urls = [
     { loc: site, priority: '1.0', changefreq: 'weekly' },

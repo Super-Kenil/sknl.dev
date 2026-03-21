@@ -9,8 +9,6 @@ Everyone says they have "CI/CD" because it's the industry buzzword. But most of 
 
 If you’re still merging week-long branches and manually copy-pasting code to a server, you don't have CI/CD. You have a headache.
 
-Here is the breakdown in plain English.
-
 ## 1. Continuous Integration (CI)
 This is the base layer. It’s not just about running tests; it’s about **merging code**.
 

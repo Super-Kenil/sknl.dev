@@ -3,7 +3,7 @@ order: 4
 title: 'Crack Me Up'
 description: 'A collection of crackers to read while webpack is generating build'
 image: '../../assets/images/lol.png'
-url: 'https://lol.superkenil.com'
+url: 'https://lol.sknl.dev'
 gitUrl: 'https://github.com/Super-Kenil/crack-me-up'
 techStack: 'Nextjs'
 ---

@@ -14,7 +14,7 @@ export const GET: APIRoute = async () => {
       loc: `${site}/blog/${post.id}`,
       lastmod: post.data.date.toISOString().split('T')[0],
       priority: '0.7',
-      changefreq: 'monthly'
+      changefreq: 'yearly'
     })),
     { loc: `${site}/project`, priority: '0.8', changefreq: 'monthly' },
   ];

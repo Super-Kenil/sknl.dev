@@ -6,9 +6,19 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://superkenil.com',
+  site: 'https://sknl.dev',
   output: 'static',
-  integrations: [icon(), sitemap()],
+  integrations: [
+    icon(),
+    sitemap({
+      serialize(item) {
+        if (item.url.includes('/blog/')) {
+          item.changefreq = 'yearly';
+        }
+        return item;
+      },
+    }),
+  ],
   redirects: {
     '/resume': '/Kenil-Sudani-Resume.pdf'
   },

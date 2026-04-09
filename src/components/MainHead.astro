@@ -147,7 +147,7 @@ if (ogType === 'article' && articleData) {
 />
 
 <script is:inline>
-	var DAISYUI_THEMES = [
+	const DAISYUI_THEMES = [
 		'abyss', 'acid', 'aqua', 'autumn', 'black', 'bumblebee', 'business',
 		'caramellatte', 'cmyk', 'coffee', 'corporate', 'cupcake', 'cyberpunk',
 		'dark', 'dim', 'dracula', 'emerald', 'fantasy', 'forest', 'garden',
@@ -156,31 +156,33 @@ if (ogType === 'article' && articleData) {
 	];
 
 	function applyTheme(theme) {
-		var themeLink = document.getElementById('daisyui-theme');
+		const themeLink = document.getElementById('daisyui-theme');
 		if (themeLink) {
-			themeLink.href = 'https://cdn.jsdelivr.net/npm/daisyui@5/theme/' + theme + '.css';
+			themeLink.href = `https://cdn.jsdelivr.net/npm/daisyui@5/theme/${theme}.css`;
 		}
 		document.documentElement.setAttribute('data-theme', theme);
 		window.currentTheme = theme;
 	}
 
 	function initTheme() {
-		var savedTheme = localStorage.getItem('savedTheme');
-		if (savedTheme && DAISYUI_THEMES.indexOf(savedTheme) !== -1) {
+		const savedTheme = localStorage.getItem('savedTheme');
+		if (savedTheme && DAISYUI_THEMES.includes(savedTheme)) {
 			applyTheme(savedTheme);
 			return;
 		}
 
-		if (window.currentTheme && DAISYUI_THEMES.indexOf(window.currentTheme) !== -1) {
+		if (window.currentTheme && DAISYUI_THEMES.includes(window.currentTheme)) {
 			applyTheme(window.currentTheme);
 			return;
 		}
-		var randomTheme = DAISYUI_THEMES[Math.floor(Math.random() * DAISYUI_THEMES.length)];
+
+		const randomTheme = DAISYUI_THEMES[Math.floor(Math.random() * DAISYUI_THEMES.length)];
 		applyTheme(randomTheme);
 	}
 
 	initTheme();
-	document.addEventListener('astro:after-swap', function() {
+
+	document.addEventListener('astro:after-swap', () => {
 		if (window.currentTheme) {
 			applyTheme(window.currentTheme);
 		}

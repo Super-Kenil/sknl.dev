@@ -4,11 +4,11 @@
 
 ## About
 
-Kenil grew up in a small town in southern Gujarat, India. He's loved computers since getting an AMD Athlon 2 PC at age 10. Started with gaming, discovered the internet in 2014, and began serious programming in 2020 during his bachelor's degree.
+Kenil grew up in a small town in southern Gujarat, India. He's loved computers since getting an AMD Athlon II PC at age 10. Started with gaming, discovered the internet in 2014, and began serious programming in 2020 during his bachelor's degree.
 
 He interned at Genxel Technology in mid-2022 while pursuing his Master's, building an NFT Marketplace from scratch. Later joined Coderthemes as Staff Engineer / Front End Developer, learning TypeScript, Angular, Vue, design patterns, SOLID principles, and Linux.
 
-Currently building automation tools (AI and non-AI). Codes in VSCode with Copilot turned off to stay sharp, but uses AI chat platforms for debugging when stuck.
+Currently building automation tools (AI and non-AI). Codes in VSCode with AI features used selectively to maintain deep problem-solving skills, but uses AI chat platforms for debugging when stuck.
 
 ## Skills
 
@@ -25,19 +25,19 @@ Currently building automation tools (AI and non-AI). Codes in VSCode with Copilo
    - GitHub: https://github.com/Super-Kenil/super-detype
 
 2. **Base64** - Simple encoder/decoder with conversion history.
-   - Live: https://base64.superkenil.com
+   - Live: https://base64.sknl.dev
    - GitHub: https://github.com/Super-Kenil/base64
 
 3. **Birthday Wish** - 3D animated cake birthday wisher built in React.
-   - Live: https://birthday-wish.superkenil.com
+   - Live: https://birthday-wish.sknl.dev
    - GitHub: https://github.com/Super-Kenil/birthday-wish
 
-4. **Crack Me Up** - Developer jokes for those webpack build pauses.
-   - Live: https://lol.superkenil.com
+4. **Crack Me Up** - A collection of developer jokes to read while webpack is generating build.
+   - Live: https://lol.sknl.dev
    - GitHub: https://github.com/Super-Kenil/crack-me-up
 
-5. **Offline To-Do** - PWA todo app using browser SQLite with AI features.
-   - Live: https://local-todo.superkenil.com
+5. **Offline To-Do** - A minimal To-Do and Reminders app that works offline using SQLite.
+   - Live: https://local-todo.sknl.dev
    - GitHub: https://github.com/Super-Kenil/offline-todo
 
 ## Work Experience
@@ -52,10 +52,10 @@ Tech: NextJs, Web3, Solidity, React Native, NodeJs, Sanity, MySQL
 
 ## Contact
 
-- Website: https://superkenil.com
+- Website: https://sknl.dev
 - GitHub: https://github.com/Super-Kenil
 - X/Twitter: https://x.com/super_kenil
 - LinkedIn: https://in.linkedin.com/in/super-kenil
-- Bluesky: https://bsky.app/profile/superkenil.com
+- Bluesky: https://bsky.app/profile/sknl.dev
 - npm: https://www.npmjs.com/~super-kenil
-- Email: contact@superkenil.com
+- Email: contact@sknl.dev

@@ -1,43 +1,42 @@
-# Astro Starter Kit: Minimal
+# Kenil Sudani — Portfolio & Blog
+
+A high-performance, SEO-optimized portfolio and blog built with **Astro 6**, **Tailwind CSS 4**, and **DaisyUI 5**. This is the source code for my personal site at [sknl.dev](https://sknl.dev).
+
+Designed for developers who want a clean, minimalist, and blazing-fast personal brand presence.
+
+### ✨ Highlights
+- **Framework**: [Astro 6](https://astro.build/) (Static Site Generation)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/) & [DaisyUI 5](https://daisyui.com/)
+- **SEO**: Dynamic sitemaps and automated OG image generation using Satori
+- **Content**: Fully managed via Astro Content Collections (Markdown)
+
+---
+
+### 🚀 Quick Start
+
+Get your portfolio up and running in seconds using [Bun](https://bun.sh/).
 
 ```sh
-npm create astro@latest -- --template minimal
+bun install
+bun run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+| Command | Action |
+| :--- | :--- |
+| `bun install` | Install all dependencies |
+| `bun run dev` | Start local development server |
+| `bun run build` | Build the production-ready site |
+| `bun run preview` | Preview the local production build |
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro project, you'll see the following folders and files:
+### 🛠️ Customization
+Managing your content is as simple as editing Markdown files in `src/content/`:
+- `blog/` — Your technical articles and thoughts.
+- `project/` — Showcase your latest work.
+- `about.md` — Your personal bio and journey.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+---
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+### 📄 License
+MIT. Use it, fork it, and make it your own.

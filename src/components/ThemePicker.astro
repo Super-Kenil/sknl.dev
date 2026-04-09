@@ -26,76 +26,57 @@ import { Icon } from 'astro-icon/components';
 	</button>
 </div>
 
-<script is:inline>
-	(function() {
-		const themes = [
-			'abyss', 'acid', 'aqua', 'autumn', 'black', 'bumblebee', 'business',
-			'caramellatte', 'cmyk', 'coffee', 'corporate', 'cupcake', 'cyberpunk',
-			'dark', 'dim', 'dracula', 'emerald', 'fantasy', 'forest', 'garden',
-			'halloween', 'lemonade', 'light', 'lofi', 'luxury', 'night', 'nord',
-			'pastel', 'retro', 'silk', 'sunset', 'synthwave', 'valentine', 'winter', 'wireframe'
-		];
+<script>
+	const themes = [
+		'abyss', 'acid', 'aqua', 'autumn', 'black', 'bumblebee', 'business',
+		'caramellatte', 'cmyk', 'coffee', 'corporate', 'cupcake', 'cyberpunk',
+		'dark', 'dim', 'dracula', 'emerald', 'fantasy', 'forest', 'garden',
+		'halloween', 'lemonade', 'light', 'lofi', 'luxury', 'night', 'nord',
+		'pastel', 'retro', 'silk', 'sunset', 'synthwave', 'valentine', 'winter', 'wireframe'
+	];
 
-		function setTheme(theme) {
-			try {
-				const themeLink = document.getElementById('daisyui-theme');
-				if (themeLink) {
-					themeLink.href = 'https://cdn.jsdelivr.net/npm/daisyui@5/theme/' + theme + '.css';
-					document.documentElement.setAttribute('data-theme', theme);
-					window.currentTheme = theme;
+	function setTheme(theme) {
+		const themeLink = document.getElementById('daisyui-theme');
+		if (themeLink) {
+			themeLink.href = `https://cdn.jsdelivr.net/npm/daisyui@5/theme/${theme}.css`;
+			document.documentElement.setAttribute('data-theme', theme);
+			window.currentTheme = theme;
+		}
+	}
+
+	function updateSaveIcon(isSaved) {
+		document.querySelectorAll('.save-icon').forEach(el => el.classList.toggle('hidden', isSaved));
+		document.querySelectorAll('.saved-icon').forEach(el => el.classList.toggle('hidden', !isSaved));
+	}
+
+	function setupThemeButtons() {
+		const randomBtn = document.getElementById('random-theme-btn');
+		const saveBtn = document.getElementById('save-theme-btn');
+
+		if (randomBtn) {
+			randomBtn.onclick = () => {
+				const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+				setTheme(randomTheme);
+				localStorage.removeItem('savedTheme');
+				updateSaveIcon(false);
+			};
+		}
+
+		if (saveBtn) {
+			saveBtn.onclick = () => {
+				const { currentTheme } = window;
+				if (currentTheme) {
+					localStorage.setItem('savedTheme', currentTheme);
+					updateSaveIcon(true);
 				}
-			} catch (e) {
-				console.error('setTheme error:', e);
-			}
+			};
 		}
 
-		function updateSaveIcon(saved) {
-			document.querySelectorAll('.save-icon').forEach(function(el) { el.classList.toggle('hidden', saved); });
-			document.querySelectorAll('.saved-icon').forEach(function(el) { el.classList.toggle('hidden', !saved); });
-		}
+		const savedTheme = localStorage.getItem('savedTheme');
+		updateSaveIcon(!!(savedTheme && savedTheme === window.currentTheme));
+	}
 
-		function setupThemeButtons() {
-			try {
-				var randomBtn = document.getElementById('random-theme-btn');
-				var saveBtn = document.getElementById('save-theme-btn');
-
-				if (randomBtn) {
-					var newRandomBtn = randomBtn.cloneNode(true);
-					randomBtn.parentNode.replaceChild(newRandomBtn, randomBtn);
-					newRandomBtn.addEventListener('click', function() {
-						var randomTheme = themes[Math.floor(Math.random() * themes.length)];
-						setTheme(randomTheme);
-						localStorage.removeItem('savedTheme');
-						updateSaveIcon(false);
-					});
-				}
-
-				if (saveBtn) {
-					var newSaveBtn = saveBtn.cloneNode(true);
-					saveBtn.parentNode.replaceChild(newSaveBtn, saveBtn);
-					newSaveBtn.addEventListener('click', function() {
-						var currentTheme = window.currentTheme;
-						if (currentTheme) {
-							localStorage.setItem('savedTheme', currentTheme);
-							updateSaveIcon(true);
-						}
-					});
-				}
-
-				var savedTheme = localStorage.getItem('savedTheme');
-				var currentTheme = window.currentTheme;
-				updateSaveIcon(savedTheme && savedTheme === currentTheme);
-			} catch (e) {
-				console.error('setupThemeButtons error:', e);
-			}
-		}
-
-		if (document.readyState === 'loading') {
-			document.addEventListener('DOMContentLoaded', setupThemeButtons);
-		} else {
-			setupThemeButtons();
-		}
-
-		document.addEventListener('astro:page-load', setupThemeButtons);
-	})();
+	// Initialize on page load and after Astro transitions
+	setupThemeButtons();
+	document.addEventListener('astro:page-load', setupThemeButtons);
 </script>

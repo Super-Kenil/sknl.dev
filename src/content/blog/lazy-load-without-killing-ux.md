@@ -2,7 +2,7 @@
 title: 'Lazy Load Without Killing Your UX'
 description: "Clicking a button shouldn't feel like a chore. Discover how to eliminate 'ghost delays' in your React apps by decoupling dialog state from content loading for a buttery-smooth, high-performance interface."
 date: 2026-04-05
-tags: ['react', 'architecture', 'performance', 'ux']
+tags: ['react', 'nextjs', 'webperf', 'frontend', 'ux-design', 'zustand', 'javascript', 'architecture']
 ---
 
 The problem with lazy loading dialogs is simple: code splitting ruins UX. You click a button, nothing happens for 200ms, then the dialog pops up. Users hate that delay.

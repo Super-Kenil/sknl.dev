@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @plugin "daisyui";
-@plugin "tailwind-scrollbar";
 
 /* Minimal scrollbar styling */
 html {

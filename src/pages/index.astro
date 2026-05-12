@@ -4,19 +4,20 @@ import {Icon} from 'astro-icon/components';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CenteredLayout from '../layouts/CenteredLayout.astro';
 import ThemePicker from '../components/ThemePicker.astro';
+import { AUTHOR_NAME, AUTHOR_NICKNAME, SITE_DESCRIPTION, SOCIAL_LINKS } from '../consts';
 ---
 
-<BaseLayout title='Super Kenil (Kenil Sudani)' description='Full-stack developer from Gujarat, India. Building tools that solve real problems.'>
+<BaseLayout title={`${AUTHOR_NICKNAME} (${AUTHOR_NAME})`} description={SITE_DESCRIPTION}>
   <CenteredLayout>
     <div class='card card-border'>
       <div class='card-body'>
         <div class='flex items-center justify-between'>
-          <h1 class='card-title font-extrabold text-2xl'>Kenil Sudani</h1>
+          <h1 class='card-title font-extrabold text-2xl'>{AUTHOR_NAME}</h1>
           <ThemePicker />
         </div>
         <p transition:animate="fade">Friendly Neighbourhood Nerd</p>
 
-        <p class='text-sm opacity-75 mt-2' transition:animate="fade">Full-stack developer from Gujarat. I build tools that solve real problems and occasionally write about what I learn. Mostly posting on <a href='https://x.com/super_kenil' target='_blank' rel='noopener noreferrer' class='link'>X (Twitter)</a>.</p>
+        <p class='text-sm opacity-75 mt-2' transition:animate="fade">Full-stack developer from Gujarat. I build tools that solve real problems and occasionally write about what I learn. Mostly posting on <a href={SOCIAL_LINKS.twitter} target='_blank' rel='noopener noreferrer' class='link'>X (Twitter)</a>.</p>
 
         <div class='divider invisible'></div>
 
@@ -46,22 +47,22 @@ import ThemePicker from '../components/ThemePicker.astro';
         <div class='divider'></div>
 
         <div class='flex flex-wrap gap-3 justify-center' transition:animate="fade">
-          <a href='https://github.com/Super-Kenil/' target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='GitHub'>
+          <a href={SOCIAL_LINKS.github} target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='GitHub'>
             <Icon name='lucide:github' size={18} />
           </a>
-          <a href='https://x.com/super_kenil' target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='X (Twitter)'>
+          <a href={SOCIAL_LINKS.twitter} target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='X (Twitter)'>
             <Icon name='ri:twitter-x-fill' size={18} />
           </a>
-          <a href='https://in.linkedin.com/in/super-kenil' target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='LinkedIn'>
+          <a href={SOCIAL_LINKS.linkedin} target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='LinkedIn'>
             <Icon name='lucide:linkedin' size={18} />
           </a>
-          <a href='https://bsky.app/profile/superkenil.com' target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='Bluesky'>
+          <a href={SOCIAL_LINKS.bluesky} target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='Bluesky'>
             <Icon name='ri:bluesky-line' size={18} />
           </a>
-          <a href='https://www.npmjs.com/~super-kenil?activeTab=packages' target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='npm'>
+          <a href={SOCIAL_LINKS.npm} target='_blank' rel='noopener noreferrer' class='btn btn-sm btn-ghost' aria-label='npm'>
             <Icon name='ri:npmjs-line' size={18} />
           </a>
-          <a href='mailto:contact@superkenil.com' class='btn btn-sm btn-ghost' aria-label='Email'>
+          <a href={`mailto:${SOCIAL_LINKS.email}`} class='btn btn-sm btn-ghost' aria-label='Email'>
             <Icon name='lucide:mail' size={18} />
           </a>
         </div>

@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { SITE_URL, AUTHOR_NAME, AUTHOR_NICKNAME, SITE_DESCRIPTION, SOCIAL_LINKS } from '../consts';
 
 type Props = {
 	title?: string | undefined;
@@ -14,22 +15,22 @@ type Props = {
 }
 
 const {
-	title = 'Super Kenil (Kenil Sudani)',
-	description = 'A developer from Gujarat, India. Building tools that solve real problems.',
+	title = `${AUTHOR_NICKNAME} (${AUTHOR_NAME})`,
+	description = SITE_DESCRIPTION,
 	ogType = 'website',
 	ogImage = '/og-image.webp',
 	articleData,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, 'https://sknl.dev');
-const siteURL = 'https://sknl.dev';
+const canonicalURL = new URL(Astro.url.pathname, SITE_URL);
+const siteURL = SITE_URL;
 
 // JSON-LD structured data
 let jsonLD: any = {
 	"@context": "https://schema.org",
 	"@type": "Person",
-	"name": "Kenil Sudani",
-	"alternateName": "Super Kenil",
+	"name": AUTHOR_NAME,
+	"alternateName": AUTHOR_NICKNAME,
 	"url": siteURL,
 	"jobTitle": "Developer",
 	"worksFor": {
@@ -37,11 +38,11 @@ let jsonLD: any = {
 		"name": "Freelance"
 	},
 	"sameAs": [
-		"https://github.com/Super-Kenil",
-		"https://x.com/super_kenil",
-		"https://linkedin.com/in/super-kenil",
-		"https://bsky.app/profile/sknl.dev",
-		"https://www.npmjs.com/~super-kenil"
+		SOCIAL_LINKS.github,
+		SOCIAL_LINKS.twitter,
+		SOCIAL_LINKS.linkedin,
+		SOCIAL_LINKS.bluesky,
+		SOCIAL_LINKS.npm
 	],
 	"address": {
 		"@type": "PostalAddress",
@@ -58,7 +59,7 @@ if (ogType === 'article' && articleData) {
 		"description": description,
 		"author": {
 			"@type": "Person",
-			"name": articleData.author || "Kenil Sudani",
+			"name": articleData.author || AUTHOR_NAME,
 			"url": siteURL
 		},
 		"datePublished": articleData.publishDate.toISOString(),
@@ -69,7 +70,7 @@ if (ogType === 'article' && articleData) {
 		},
 		"publisher": {
 			"@type": "Person",
-			"name": "Kenil Sudani",
+			"name": AUTHOR_NAME,
 			"url": siteURL
 		}
 	};
@@ -88,8 +89,8 @@ if (ogType === 'article' && articleData) {
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
-<meta name="author" content="Kenil Sudani" />
-<meta name="keywords" content="Kenil Sudani, Super Kenil, developer, full-stack, Gujarat, India, JavaScript, TypeScript, web development" />
+<meta name="author" content={AUTHOR_NAME} />
+<meta name="keywords" content={`${AUTHOR_NAME}, ${AUTHOR_NICKNAME}, developer, full-stack, Gujarat, India, JavaScript, TypeScript, web development`} />
 <link rel="canonical" href={canonicalURL} />
 
 <!-- Open Graph / Facebook -->
@@ -97,7 +98,7 @@ if (ogType === 'article' && articleData) {
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:site_name" content="Super Kenil" />
+<meta property="og:site_name" content={AUTHOR_NICKNAME} />
 <meta property="og:locale" content="en_US" />
 <meta property="og:image" content={new URL(ogImage, siteURL)} />
 <meta property="og:image:width" content="1200" />
@@ -116,12 +117,12 @@ if (ogType === 'article' && articleData) {
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:site" content="@super_kenil" />
+<meta name="twitter:site" content={SOCIAL_LINKS.twitter.replace('https://x.com/', '@')} />
 <meta name="twitter:url" content={canonicalURL} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={new URL(ogImage, siteURL)} />
-<meta name="twitter:creator" content="@super_kenil" />
+<meta name="twitter:creator" content={SOCIAL_LINKS.twitter.replace('https://x.com/', '@')} />
 
 <!-- Favicon & Icons -->
 <link rel="icon" type="image/x-icon" href="/favicon.ico" />

@@ -1,12 +1,12 @@
 ---
 import {Image} from 'astro:assets';
 import type {CollectionEntry} from 'astro:content';
-import MainHead from '../components/MainHead.astro';
+
 import BaseLayout from './BaseLayout.astro';
 
 type Props = CollectionEntry<'project'>['data'];
 
-const {title, description, image} = Astro.props;
+const {title, image} = Astro.props;
 ---
 
 <BaseLayout>

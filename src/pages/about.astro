@@ -1,9 +1,11 @@
 ---
 import {render} from 'astro:content';
+import {getEntry} from 'astro:content';
+
 import HomeButton from '../components/HomeButton.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CenteredLayout from '../layouts/CenteredLayout.astro';
-import {getEntry} from 'astro:content';
+import { AUTHOR_NAME, AUTHOR_NICKNAME } from '../consts';
 
 const about = await getEntry('about', 'about');
 if (!about) {
@@ -12,12 +14,12 @@ if (!about) {
 const {Content: AboutContent} = await render(about);
 ---
 
-<BaseLayout title='About | Super Kenil' description='The story of Kenil Sudani - from a small town in Gujarat to SDE'>
+<BaseLayout title={`About | ${AUTHOR_NICKNAME}`} description={`The story of ${AUTHOR_NAME} - from a small town in Gujarat to SDE`}>
   <CenteredLayout>
     <div class='card card-border'>
       <div class='card-body'>
         <HomeButton className='mb-2' />
-        <h1 class='card-title font-extrabold text-2xl'>Kenil Sudani</h1>
+        <h1 class='card-title font-extrabold text-2xl'>{AUTHOR_NAME}</h1>
         <span class='font-extrabold text-lg block mt-4' aria-label='about me'>The Story</span>
         <div class='prose prose-sm' transition:animate="fade">
           <AboutContent />

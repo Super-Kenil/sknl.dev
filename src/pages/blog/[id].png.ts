@@ -2,6 +2,8 @@ import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 import { getCollection } from 'astro:content';
 
+import { AUTHOR_NICKNAME, SITE_URL } from '../../consts';
+
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
 	return posts.map((post) => ({
@@ -52,7 +54,7 @@ export const GET = async ({ props }: { props: any }) => {
                 marginTop: 8,
 								letterSpacing: '0.02em',
 							},
-							children: 'Super Kenil',
+							children: AUTHOR_NICKNAME,
 						},
 					},
 					{
@@ -186,7 +188,7 @@ export const GET = async ({ props }: { props: any }) => {
 																	opacity: 0.7,
 																	letterSpacing: '0.01em',
 																},
-																children: 'sknl.dev',
+																children: SITE_URL.replace('https://', ''),
 															},
 														},
 													],

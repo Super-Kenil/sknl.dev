@@ -1,8 +1,9 @@
 ---
 import {getCollection} from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
 import {Image} from 'astro:assets';
 import {Icon} from 'astro-icon/components';
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import HomeButton from '../../components/HomeButton.astro';
 
 const projects = (await getCollection('project')).sort((a, b) => a.data.order - b.data.order);

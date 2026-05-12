@@ -1,8 +1,10 @@
 ---
 import {getCollection, render} from 'astro:content';
+import { Icon } from 'astro-icon/components'
+
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HomeButton from '../../components/HomeButton.astro';
-import { Icon } from 'astro-icon/components'
+import { AUTHOR_NAME, AUTHOR_NICKNAME } from '../../consts';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -17,14 +19,14 @@ const { Content } = await render(post);
 ---
 
 <BaseLayout
-  title={`${post.data.title} | Super Kenil`}
+  title={`${post.data.title} | ${AUTHOR_NICKNAME}`}
   description={post.data.description}
   ogType="article"
   ogImage={`/blog/${post.id}.png`}
   articleData={{
     publishDate: post.data.date,
     tags: post.data.tags,
-    author: "Kenil Sudani"
+    author: AUTHOR_NAME
   }}
 >
   <main class='flex flex-col mx-auto py-12 max-w-2xl px-4'>

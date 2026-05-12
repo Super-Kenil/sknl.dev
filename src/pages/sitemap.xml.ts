@@ -1,5 +1,8 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
+
+import { SITE_URL } from '../consts';
+
 type SitemapUrl = {
   loc: string;
   lastmod?: string;
@@ -10,7 +13,7 @@ type SitemapUrl = {
 export const GET: APIRoute = async () => {
   const posts = await getCollection('blog');
 
-  const site = 'https://sknl.dev';
+  const site = SITE_URL;
 
   const urls: SitemapUrl[] = [
     { loc: site, priority: '1.0', changefreq: 'weekly' },

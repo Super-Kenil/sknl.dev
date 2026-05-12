@@ -10,6 +10,11 @@ Designed for developers who want a clean, minimalist, and blazing-fast personal 
 - **SEO**: Dynamic sitemaps and automated OG image generation using Satori
 - **Content**: Fully managed via Astro Content Collections (Markdown)
 
+### ⚙️ Technical Features
+- **Sitemap Generation**: `src/pages/sitemap.xml.ts` dynamically fetches content collections (e.g., blogs) and generates an XML sitemap at build time.
+- **Dynamic OG Images**: No manual image creation. `src/pages/blog/[id].png.ts` uses `satori` to convert JSX/CSS layouts to SVG, and `@resvg/resvg-js` to render them into crisp PNGs dynamically.
+- **Type-Safe Markdown**: Built-in strict frontmatter validation using `zod` in `src/content.config.ts`. The build fails if you miss a required tag like `title` or `date`.
+
 ---
 
 ### 🚀 Quick Start

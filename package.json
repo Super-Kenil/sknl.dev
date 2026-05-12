@@ -7,23 +7,23 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "astro build && npx wrangler pages deploy dist"
+    "update-pdf": "bun run src/scripts/update-pdf-metadata.ts",
+    "deploy": "bun run update-pdf && astro build && npx wrangler pages deploy dist"
   },
   "dependencies": {
+    "astro-icon": "^1.1.5"
+  },
+  "devDependencies": {
+    "@iconify-json/lucide": "^1.2.101",
+    "satori": "^0.25.0",
+    "@resvg/resvg-js": "^2.6.2",
     "@astrojs/react": "^5.0.4",
     "@astrojs/sitemap": "^3.7.2",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.3.1",
-    "astro-icon": "^1.1.5",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
+    "pdf-lib": "^1.17.1",
     "tailwindcss": "^4.3.0",
-    "satori": "^0.25.0",
-    "@resvg/resvg-js": "^2.6.2"
-  },
-  "devDependencies": {
-    "@iconify-json/lucide": "^1.2.101",
     "@iconify-json/ri": "^1.2.10",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",

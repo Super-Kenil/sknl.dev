@@ -10,5 +10,5 @@ export const SOCIAL_LINKS = {
 	linkedin: 'https://linkedin.com/in/super-kenil',
 	bluesky: 'https://bsky.app/profile/sknl.dev',
 	npm: 'https://www.npmjs.com/~super-kenil',
-	email: 'contact@superkenil.com',
+	email: 'contact@sknl.dev',
 };

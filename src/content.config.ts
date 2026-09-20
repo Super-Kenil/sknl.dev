@@ -9,6 +9,7 @@ const project = defineCollection({
       title: z.string(),
       description: z.string(),
       image: image(),
+      imgParentClass: z.string().optional(),
       url: z.string().url().optional(),
       gitUrl: z.string().url().optional(),
       techStack: z.string()

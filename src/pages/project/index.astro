@@ -22,11 +22,11 @@ const projects = (await getCollection('project')).sort((a, b) => a.data.order - 
             class='card card-sm card-border bg-base-100 col-span-2 md:col-span-1 border-base-300 animate-slideup'
             style={`animation-delay: ${index * 100}ms`}
           >
-            <div class='avatar mx-auto p-4'>
-              <div class='w-40 rounded flex items-center justify-center'>
-                <Image src={project.image} width={160} class='rounded-[calc(var(--radius-box)-.5rem)] object-contain w-full' alt={project.title} />
+            
+              <div class:list={['rounded flex items-center justify-center overflow-hidden', project.imgParentClass || 'w-40 mx-auto p-4']}>
+                <Image src={project.image} width={306} class='rounded-[calc(var(--radius-box)-.5rem)] object-contain w-full h-min' alt={project.title} />
               </div>
-            </div>
+            
             <div class='card-body gap-4'>
               <h2 class='flex items-center justify-between'>
                 <span class='font-semibold text-lg'>{project.title}</span>

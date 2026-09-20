@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 6
 title: 'Base64'
 description: 'Encodes and decodes base64 strings, keeps history'
 image: '../../assets/images/base64.png'

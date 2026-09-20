@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 9
 title: 'Offline To-Do'
 description: 'A minimal To-Do and Reminders app that works offline using SQLite'
 image: '../../assets/images/todo.png'

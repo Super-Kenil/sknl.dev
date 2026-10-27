@@ -181,7 +181,38 @@ if (ogType === 'article' && articleData) {
 		applyTheme(randomTheme);
 	}
 
+	function updateSaveIcon(isSaved) {
+		document.querySelectorAll('.save-icon').forEach(el => el.classList.toggle('hidden', isSaved));
+		document.querySelectorAll('.saved-icon').forEach(el => el.classList.toggle('hidden', !isSaved));
+	}
+
+	function randomizeTheme() {
+		const availableThemes = DAISYUI_THEMES.filter(theme => theme !== window.currentTheme);
+		const randomTheme = availableThemes[Math.floor(Math.random() * availableThemes.length)];
+		applyTheme(randomTheme);
+		localStorage.removeItem('savedTheme');
+		updateSaveIcon(false);
+	}
+
+	function saveTheme() {
+		if (window.currentTheme) {
+			localStorage.setItem('savedTheme', window.currentTheme);
+			updateSaveIcon(true);
+		}
+	}
+
 	initTheme();
+
+	if (!window.siteThemeActionsBound) {
+		document.addEventListener('site:randomize-theme', randomizeTheme);
+		document.addEventListener('site:save-theme', saveTheme);
+		window.siteThemeActionsBound = true;
+	}
+
+	document.addEventListener('astro:page-load', () => {
+		const savedTheme = localStorage.getItem('savedTheme');
+		updateSaveIcon(!!(savedTheme && savedTheme === window.currentTheme));
+	});
 
 	document.addEventListener('astro:after-swap', () => {
 		if (window.currentTheme) {

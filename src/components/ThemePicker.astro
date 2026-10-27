@@ -4,79 +4,26 @@ import { Icon } from 'astro-icon/components';
 ---
 
 <div class="flex items-center gap-1">
-	<!-- Random Theme Button -->
 	<button
 		id="random-theme-btn"
-		class="btn btn-ghost btn-sm btn-square"
-		aria-label="Random theme"
-		title="Random theme"
+		class="btn btn-ghost btn-sm gap-2 px-2"
+		data-theme-action="randomize"
+		aria-label="Random theme (D)"
+		title="Random theme (D)"
 	>
 		<Icon name="lucide:palette" size={18} />
+		<kbd class="kbd kbd-xs" aria-hidden="true">D</kbd>
 	</button>
 
-	<!-- Save Theme Button -->
 	<button
 		id="save-theme-btn"
-		class="btn btn-ghost btn-sm btn-square"
-		aria-label="Save theme"
-		title="Save current theme"
+		class="btn btn-ghost btn-sm gap-2 px-2"
+		data-theme-action="save"
+		aria-label="Save theme (S)"
+		title="Save current theme (S)"
 	>
 		<Icon name="lucide:bookmark" size={18} class="save-icon" />
 		<Icon name="lucide:bookmark-check" size={18} class="saved-icon hidden" />
+		<kbd class="kbd kbd-xs" aria-hidden="true">S</kbd>
 	</button>
 </div>
-
-<script>
-	const themes = [
-		'abyss', 'acid', 'aqua', 'autumn', 'black', 'bumblebee', 'business',
-		'caramellatte', 'cmyk', 'coffee', 'corporate', 'cupcake', 'cyberpunk',
-		'dark', 'dim', 'dracula', 'emerald', 'fantasy', 'forest', 'garden',
-		'halloween', 'lemonade', 'light', 'lofi', 'luxury', 'night', 'nord',
-		'pastel', 'retro', 'silk', 'sunset', 'synthwave', 'valentine', 'winter', 'wireframe'
-	];
-
-	function setTheme(theme) {
-		const themeLink = document.getElementById('daisyui-theme');
-		if (themeLink) {
-			themeLink.href = `https://cdn.jsdelivr.net/npm/daisyui@5/theme/${theme}.css`;
-			document.documentElement.setAttribute('data-theme', theme);
-			window.currentTheme = theme;
-		}
-	}
-
-	function updateSaveIcon(isSaved) {
-		document.querySelectorAll('.save-icon').forEach(el => el.classList.toggle('hidden', isSaved));
-		document.querySelectorAll('.saved-icon').forEach(el => el.classList.toggle('hidden', !isSaved));
-	}
-
-	function setupThemeButtons() {
-		const randomBtn = document.getElementById('random-theme-btn');
-		const saveBtn = document.getElementById('save-theme-btn');
-
-		if (randomBtn) {
-			randomBtn.onclick = () => {
-				const randomTheme = themes[Math.floor(Math.random() * themes.length)];
-				setTheme(randomTheme);
-				localStorage.removeItem('savedTheme');
-				updateSaveIcon(false);
-			};
-		}
-
-		if (saveBtn) {
-			saveBtn.onclick = () => {
-				const { currentTheme } = window;
-				if (currentTheme) {
-					localStorage.setItem('savedTheme', currentTheme);
-					updateSaveIcon(true);
-				}
-			};
-		}
-
-		const savedTheme = localStorage.getItem('savedTheme');
-		updateSaveIcon(!!(savedTheme && savedTheme === window.currentTheme));
-	}
-
-	// Initialize on page load and after Astro transitions
-	setupThemeButtons();
-	document.addEventListener('astro:page-load', setupThemeButtons);
-</script>

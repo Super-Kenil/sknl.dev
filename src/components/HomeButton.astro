@@ -4,6 +4,6 @@ import {Icon} from 'astro-icon/components';
 const {className = ''} = Astro.props;
 ---
 
-<a href='/' class={`link link-hover flex items-center gap-x-1 text-sm${className!== '' ? ` ${className}` : ''}`}>
-  <Icon name='lucide:arrow-left' size={16} /> Back
+<a href='/' title='Back (Backspace)' class={`link link-hover flex items-center gap-x-2 text-sm${className!== '' ? ` ${className}` : ''}`}>
+  <Icon name='lucide:arrow-left' size={16} /> Back <kbd class='kbd kbd-xs' aria-hidden='true'>Backspace</kbd>
 </a>

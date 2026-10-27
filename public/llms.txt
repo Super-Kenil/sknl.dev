@@ -58,4 +58,4 @@ Tech: NextJs, Web3, Solidity, React Native, NodeJs, Sanity, MySQL
 - LinkedIn: https://in.linkedin.com/in/super-kenil
 - Bluesky: https://bsky.app/profile/sknl.dev
 - npm: https://www.npmjs.com/~super-kenil
-- Email: contact@sknl.dev
+- Email: hello@sknl.dev

@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 6
 title: 'super-detype'
 description: 'Strips out TS definitions and syntax from your WHOLE project'
 image: '../../assets/images/npm.png'

@@ -1,5 +1,5 @@
 ---
-order: 11
+order: 12
 title: 'Portfolio v1'
 description: 'The first version of my developer portfolio'
 image: '../../assets/images/portfolio-v1.png'

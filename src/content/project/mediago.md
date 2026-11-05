@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 3
 title: 'MediaGo'
 description: 'Video and image converter with client-side AI background removal and mask editing'
 image: '../../assets/images/mediago.png'

@@ -1,5 +1,5 @@
 ---
-order: 3
+order: 4
 title: 'Builder.io Velocity'
 description: 'Interactive clone of Builder.io AI launch event landing page'
 image: '../../assets/images/builder-io.png'

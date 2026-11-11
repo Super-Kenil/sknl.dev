@@ -14,18 +14,19 @@ export const GET: APIRoute = async () => {
   const posts = await getCollection('blog');
 
   const site = SITE_URL;
+  const latest = new Date(Math.max(...posts.map(p => p.data.date.getTime()))).toISOString().split('T')[0];
 
   const urls: SitemapUrl[] = [
-    { loc: site, priority: '1.0', changefreq: 'weekly' },
-    { loc: `${site}/about`, priority: '0.9', changefreq: 'monthly' },
-    { loc: `${site}/blog`, priority: '0.8', changefreq: 'weekly' },
+    { loc: site, lastmod: latest, priority: '1.0', changefreq: 'weekly' },
+    { loc: `${site}/about`, lastmod: latest, priority: '0.9', changefreq: 'monthly' },
+    { loc: `${site}/blog`, lastmod: latest, priority: '0.8', changefreq: 'weekly' },
     ...posts.map(post => ({
       loc: `${site}/blog/${post.id}`,
       lastmod: post.data.date.toISOString().split('T')[0],
       priority: '0.7',
       changefreq: 'yearly'
     })),
-    { loc: `${site}/project`, priority: '0.8', changefreq: 'monthly' },
+    { loc: `${site}/project`, lastmod: latest, priority: '0.8', changefreq: 'monthly' },
   ];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

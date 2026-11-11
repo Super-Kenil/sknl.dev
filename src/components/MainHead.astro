@@ -22,7 +22,7 @@ const {
 	articleData,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, SITE_URL);
+const canonicalURL = new URL(Astro.url.pathname.replace(/(.)\/+$/, '$1'), SITE_URL);
 const siteURL = SITE_URL;
 
 // JSON-LD structured data

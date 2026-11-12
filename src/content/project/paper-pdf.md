@@ -4,7 +4,7 @@ title: 'paper pdf'
 description: 'Free browser-based PDF toolkit for merging, converting, compressing, and securing files'
 image: '../../assets/images/pdf.png'
 url: 'https://pdf.sknl.dev/'
-gitUrl: 'https://github.com/Super-Kenil/pdf'
+imgParentClass: 'w-auto h-40'
 techStack: 'React,TypeScript,Vite,PDF.js,pdf-lib,jsPDF,Tesseract.js,Tailwind'
 ---
 

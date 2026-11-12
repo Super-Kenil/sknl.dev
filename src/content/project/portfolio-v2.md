@@ -1,5 +1,5 @@
 ---
-order: 11
+order: 12
 title: 'Portfolio v2'
 description: 'Second iteration of my personal portfolio featuring 3D elements'
 image: '../../assets/images/portfolio-v2.png'

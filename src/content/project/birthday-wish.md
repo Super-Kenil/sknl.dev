@@ -1,5 +1,5 @@
 ---
-order: 8
+order: 9
 title: 'Birthday Wish'
 description: 'Wish the happiest birthday to your loved ones with a sweet 3D cake'
 image: '../../assets/images/birthday-wish.png'

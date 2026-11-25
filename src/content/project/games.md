@@ -3,7 +3,7 @@ order: 2
 title: 'Arcade Shelf'
 description: 'Tiny browser games built with a focus on multiplayer, playable in a click'
 image: '../../assets/images/games.svg'
-url: 'https://games.sknl.dev'
+url: 'https://onemorega.me'
 techStack: 'Next.js,React,Three.js,Vite'
 ---
 

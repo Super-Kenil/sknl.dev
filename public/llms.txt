@@ -43,7 +43,7 @@ Currently building automation tools (AI and non-AI). Codes in VSCode with AI fea
 ## Games
 
 1. **Arcade Shelf** - A growing shelf of tiny browser games built with a focus on multiplayer (brawlers, breakout, chess, physics toys, WebGPU demos) playable in a click. Not open source.
-   - Live: https://games.sknl.dev
+   - Live: https://onemorega.me
 
 ## Work Experience
 

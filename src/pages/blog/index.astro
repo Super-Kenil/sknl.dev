@@ -28,15 +28,15 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
         >
           <div class='card-body px-0'>
             <a href={`/blog/${post.id}`} class='card-title link link-hover text-lg'>
-              <span transition:name={`blog-post-${post.id}`}>{post.data.title}</span>
+              <span data-vt={`blog-post-${post.id}`}>{post.data.title}</span>
             </a>
-            <p class='text-sm opacity-70' transition:name={`blog-desc-${post.id}`}>{post.data.description}</p>
+            <p class='text-sm opacity-70' data-vt={`blog-desc-${post.id}`}>{post.data.description}</p>
             <div class='flex items-center gap-2 mt-2'>
-              <time datetime={post.data.date.toISOString()} class='text-xs opacity-50' transition:name={`blog-date-${post.id}`}>
+              <time datetime={post.data.date.toISOString()} class='text-xs opacity-50' data-vt={`blog-date-${post.id}`}>
                 {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
               </time>
               {post.data.tags && (
-                <div class='flex gap-1' transition:name={`blog-tags-${post.id}`}>
+                <div class='flex gap-1' data-vt={`blog-tags-${post.id}`}>
                   {post.data.tags.map((tag: string) => (
                     <span class='badge badge-xs'>{tag}</span>
                   ))}
@@ -49,6 +49,17 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
     </ul>
   </main>
 </BaseLayout>
+
+<script>
+  document.addEventListener('click', event => {
+    if (!(event.target instanceof Element)) return;
+    const item = event.target.closest('li');
+    if (!item || !event.target.closest('a[href^="/blog/"]')) return;
+    item.querySelectorAll<HTMLElement>('[data-vt]').forEach(el => {
+      el.style.viewTransitionName = el.dataset.vt ?? '';
+    });
+  });
+</script>
 
 <style>
   @keyframes slideup {

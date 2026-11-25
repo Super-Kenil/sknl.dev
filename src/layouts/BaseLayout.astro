@@ -1,7 +1,9 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import MainHead from '../components/MainHead.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 import ThemePicker from '../components/ThemePicker.astro';
 
 const {title, description, ogType, ogImage, articleData} = Astro.props;
@@ -11,15 +13,17 @@ const {showGlobalThemePicker = true} = Astro.props;
 <html lang='en' class='h-full scroll-smooth bg-base-200 text-base-content'>
   <head>
     <MainHead title={title} description={description} ogType={ogType} ogImage={ogImage} articleData={articleData} />
+    <GoogleAnalytics />
     <ClientRouter />
   </head>
-  <body class='min-h-full font-[Inter_Tight] container mx-auto'>
+  <body class='min-h-dvh flex flex-col font-[Inter_Tight] container mx-auto'>
     {showGlobalThemePicker && (
       <div class='fixed top-4 right-4 z-50'>
         <ThemePicker />
       </div>
     )}
     <slot />
+    <SiteFooter />
     <script src='../scripts/keyboard-shortcuts.ts'></script>
   </body>
 </html>

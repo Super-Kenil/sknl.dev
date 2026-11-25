@@ -1,0 +1,19 @@
+---
+const measurementId = 'G-L3G2S33YHR';
+---
+
+{import.meta.env.PROD && (
+  <script
+    is:inline
+    async
+    src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
+  ></script>
+)}
+
+<script>
+  import { initializeGoogleAnalytics } from '../scripts/google-analytics';
+
+  if (import.meta.env.PROD) {
+    initializeGoogleAnalytics('G-L3G2S33YHR');
+  }
+</script>

@@ -1,0 +1,27 @@
+---
+import { AUTHOR_NAME } from '../consts';
+
+const buildDate = new Date();
+const dateParts = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'Asia/Kolkata',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+}).formatToParts(buildDate);
+const datePart = (type: string) => dateParts.find(part => part.type === type)?.value ?? '';
+const updatedAt = `${datePart('year')}-${datePart('month')}-${datePart('day')}`;
+const formattedUpdatedAt = new Intl.DateTimeFormat('en', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+  timeZone: 'Asia/Kolkata',
+}).format(buildDate);
+---
+
+<footer class='mt-auto w-full px-4 py-6 text-center text-xs opacity-60'>
+  <p>
+    © {datePart('year')} {AUTHOR_NAME}
+    <span aria-hidden='true'> · </span>
+    Last updated <time datetime={updatedAt}>{formattedUpdatedAt}</time>
+  </p>
+</footer>

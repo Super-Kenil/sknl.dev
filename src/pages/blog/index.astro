@@ -77,4 +77,11 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
     opacity: 0;
     animation: slideup 0.6s ease-out forwards;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-slideup {
+      animation: none;
+      opacity: 1;
+    }
+  }
 </style>

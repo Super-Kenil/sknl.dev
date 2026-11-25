@@ -25,6 +25,16 @@ document.addEventListener('keydown', event => {
     return;
   }
 
+  const shortcutTarget = Array.from(
+    document.querySelectorAll<HTMLElement>('[data-keyboard-shortcut]')
+  ).find(element => element.dataset.keyboardShortcut?.toLowerCase() === event.key.toLowerCase());
+
+  if (shortcutTarget) {
+    event.preventDefault();
+    shortcutTarget.click();
+    return;
+  }
+
   if (event.key.toLowerCase() === 'd') {
     event.preventDefault();
     triggerThemeAction('randomize');

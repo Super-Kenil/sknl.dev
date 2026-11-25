@@ -1,10 +1,10 @@
 ---
 order: 2
-title: 'Arcade Shelf'
+title: 'OMG (One More Game)'
 description: 'Tiny browser games built with a focus on multiplayer, playable in a click'
-image: '../../assets/images/games.svg'
+image: '../../assets/images/omg.svg'
 url: 'https://onemorega.me'
-techStack: 'Next.js,React,Three.js,Vite'
+techStack: 'React,Three.js,Vite,Turborepo'
 ---
 
 I've been making small browser games lately, with a focus on multiplayer, and they needed a home. This is it: a shelf where every game opens in a click, no installs, no accounts. Brawlers, breakout cabinets, chess, physics toys and a few WebGPU tech demos.

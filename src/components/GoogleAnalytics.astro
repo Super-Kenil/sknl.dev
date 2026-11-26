@@ -8,12 +8,21 @@ const measurementId = 'G-L3G2S33YHR';
     async
     src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
   ></script>
+  <script is:inline define:vars={{ measurementId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      window.gtag = gtag;
+
+      gtag('js', new Date());
+      gtag('config', measurementId, { send_page_view: false });
+
+      document.addEventListener('astro:page-load', () => {
+        gtag('event', 'page_view', {
+          page_title: document.title,
+          page_location: window.location.href,
+        });
+      });
+    </script>
 )}
-
-<script>
-  import { initializeGoogleAnalytics } from '../scripts/google-analytics';
-
-  if (import.meta.env.PROD) {
-    initializeGoogleAnalytics('G-L3G2S33YHR');
-  }
-</script>

@@ -1,11 +1,13 @@
 import type { APIRoute } from 'astro';
 
 import {
+  AGENT_SEARCH_CONFIG,
   ALT_SITE_URL,
   AUTHOR_NAME,
   AUTHOR_NICKNAME,
   AUTHOR_ROLE,
   AUTHOR_SKILLS,
+  CONTENT_SIGNAL_POLICY,
   SITE_DESCRIPTION,
   SITE_URL,
   SOCIAL_LINKS,
@@ -38,6 +40,13 @@ export const GET: APIRoute = async () => {
     `- [Technical Blog](${SITE_URL}/blog): ${posts.length} articles on TypeScript, React, Next.js, Bun, Astro, Tailwind CSS, AI, and Rust`,
     `- [Resume (PDF)](${SITE_URL}/Kenil-Sudani-Resume.pdf): Printable resume`,
     `- [Full Markdown Context](${SITE_URL}/llms-full.txt): Complete single-file text version of all pages, projects, experience, and blog posts`,
+    '',
+    '## Agent Search & Machine-Readable Endpoints',
+    '',
+    `- **Search for Agents API:** \`${AGENT_SEARCH_CONFIG.baseEndpoint}\` — Supports \`GET ?q=<query>\` and \`HTTP QUERY\` (RFC 10008, \`text/plain\` or \`application/json\`) and returns matching Markdown chunks with source URLs and relevance scores.`,
+    `- **Markdown Negotiation:** Request any HTML route with \`Accept: text/markdown\`, or fetch direct \`.md\` mirrors (\`${SITE_URL}/index.md\`, \`/about.md\`, \`/project.md\`, \`/project/<slug>.md\`, \`/blog.md\`, \`/blog/<slug>.md\`).`,
+    `- **AI Resource Catalog:** ${SITE_URL}/.well-known/ai-catalog.json`,
+    `- **Content Signal Policy:** \`${CONTENT_SIGNAL_POLICY}\``,
     '',
     '## Free Tools & Shipped Products',
     '',

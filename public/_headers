@@ -1,2 +1,31 @@
 /*
   Strict-Transport-Security: max-age=15552000; includeSubDomains
+  Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
+/.well-known/*
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, HEAD, QUERY, OPTIONS
+  Access-Control-Allow-Headers: Content-Type, Accept
+
+/*.md
+  Content-Type: text/markdown; charset=utf-8
+  Vary: Accept
+  Access-Control-Allow-Origin: *
+
+/project/*.md
+  Content-Type: text/markdown; charset=utf-8
+  Vary: Accept
+  Access-Control-Allow-Origin: *
+
+/blog/*.md
+  Content-Type: text/markdown; charset=utf-8
+  Vary: Accept
+  Access-Control-Allow-Origin: *
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+  Access-Control-Allow-Origin: *
+
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8
+  Access-Control-Allow-Origin: *

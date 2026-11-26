@@ -17,7 +17,7 @@ export const GET: APIRoute = async () => {
   const latest = formatIsoDate(new Date(Math.max(...posts.map((p) => (p.data.updatedDate ?? p.data.date).getTime()))));
 
   const urls: SitemapUrl[] = [
-    { loc: site, lastmod: latest, priority: '1.0', changefreq: 'weekly' },
+    { loc: `${site}/`, lastmod: latest, priority: '1.0', changefreq: 'weekly' },
     { loc: `${site}/about`, lastmod: latest, priority: '0.9', changefreq: 'monthly' },
     { loc: `${site}/project`, lastmod: latest, priority: '0.9', changefreq: 'monthly' },
     ...projects.map((project) => ({
@@ -35,6 +35,7 @@ export const GET: APIRoute = async () => {
     })),
     { loc: `${site}/llms.txt`, lastmod: latest, priority: '0.5', changefreq: 'weekly' },
     { loc: `${site}/llms-full.txt`, lastmod: latest, priority: '0.5', changefreq: 'weekly' },
+    { loc: `${site}/.well-known/ai-catalog.json`, lastmod: latest, priority: '0.4', changefreq: 'weekly' },
   ];
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

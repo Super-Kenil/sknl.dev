@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import {
+	AGENT_SEARCH_CONFIG,
 	ALT_SITE_URL,
 	AUTHOR_NAME,
 	AUTHOR_NICKNAME,
@@ -23,6 +24,8 @@ type Props = {
 		author?: string;
 	} | undefined;
 	customJsonLD?: Record<string, unknown> | Record<string, unknown>[] | undefined;
+	noindex?: boolean | undefined;
+	markdownPath?: string | false | undefined;
 }
 
 const {
@@ -32,9 +35,15 @@ const {
 	ogImage = '/og-image.webp',
 	articleData,
 	customJsonLD,
+	noindex = false,
+	markdownPath,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname.replace(/(.)\/+$/, '$1'), SITE_URL);
+const normalizedPath = Astro.url.pathname.replace(/(.)\/+$/, '$1');
+const canonicalURL = new URL(normalizedPath, SITE_URL);
+const resolvedMarkdownPath = noindex || markdownPath === false
+	? null
+	: markdownPath ?? (normalizedPath === '/' ? '/index.md' : `${normalizedPath}.md`);
 const siteURL = SITE_URL;
 
 const personEntity = {
@@ -110,6 +119,14 @@ if (ogType === 'article' && articleData) {
 		"publisher": {
 			"@id": `${siteURL}/#person`
 		},
+		"potentialAction": {
+			"@type": "SearchAction",
+			"target": {
+				"@type": "EntryPoint",
+				"urlTemplate": `${siteURL}/.well-known/search?q={search_term_string}`
+			},
+			"query-input": "required name=search_term_string"
+		},
 	};
 	jsonLD = {
 		"@context": "https://schema.org",
@@ -121,8 +138,8 @@ if (ogType === 'article' && articleData) {
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="generator" content={Astro.generator} />
-<meta name="robots" content="index, follow" />
-<meta name="googlebot" content="index, follow" />
+<meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
+<meta name="googlebot" content={noindex ? 'noindex, follow' : 'index, follow'} />
 <meta name="theme-color" content="#1a1a2e" />
 <meta name="color-scheme" content="light dark" />
 
@@ -132,7 +149,7 @@ if (ogType === 'article' && articleData) {
 <meta name="description" content={description} />
 <meta name="author" content={AUTHOR_NAME} />
 <meta name="keywords" content={`${AUTHOR_NAME}, ${AUTHOR_NICKNAME}, developer, full-stack, Gujarat, India, JavaScript, TypeScript, web development`} />
-<link rel="canonical" href={canonicalURL} />
+{!noindex && <link rel="canonical" href={canonicalURL} />}
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={ogType} />
@@ -177,6 +194,14 @@ if (ogType === 'article' && articleData) {
 <link rel="author" href="/llms.txt" />
 <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt" />
 <link rel="alternate" type="text/plain" title="llms-full.txt" href="/llms-full.txt" />
+<link rel="ai-catalog" href="/.well-known/ai-catalog.json" />
+{resolvedMarkdownPath && <link rel="alternate" type="text/markdown" title="Markdown version" href={resolvedMarkdownPath} />}
+
+<!-- Search for Agents (Cloudflare /.well-known/search) -->
+<meta name="agent:instructions" content={AGENT_SEARCH_CONFIG.instructions} />
+<meta name="agent:endpoint" content={AGENT_SEARCH_CONFIG.endpoint} />
+<meta name="agent:method" content={AGENT_SEARCH_CONFIG.method} />
+<meta name="agent:documentation" content={AGENT_SEARCH_CONFIG.documentation} />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">

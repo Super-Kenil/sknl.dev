@@ -28,3 +28,15 @@ export const SOCIAL_LINKS = {
 	npm: 'https://www.npmjs.com/~super-kenil',
 	email: 'hello@sknl.dev',
 };
+
+export const CONTENT_SIGNAL_POLICY = 'ai-train=yes, search=yes, ai-input=yes';
+
+export const AGENT_SEARCH_CONFIG = {
+	instructions:
+		'Use this search API to find relevant content across this site with keywords or natural-language queries, instead of crawling individual pages. Results are returned in Markdown.',
+	endpoint: `${SITE_URL}/.well-known/search?q={query}`,
+	baseEndpoint: `${SITE_URL}/.well-known/search`,
+	method: 'GET',
+	supportedMethods: ['GET', 'QUERY'] as const,
+	documentation: 'https://developers.cloudflare.com/ai-search/how-to/search-for-agents/',
+} as const;

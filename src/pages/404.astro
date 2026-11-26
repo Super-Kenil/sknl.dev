@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CenteredLayout from '../layouts/CenteredLayout.astro';
+import HomeButton from '../components/HomeButton.astro';
+import { AUTHOR_NICKNAME } from '../consts';
+---
+
+<BaseLayout
+  title={`Page Not Found | ${AUTHOR_NICKNAME}`}
+  description='The requested page could not be found on sknl.dev.'
+  noindex={true}
+  markdownPath={false}
+>
+  <CenteredLayout>
+    <div class='card card-border max-w-md'>
+      <div class='card-body space-y-4'>
+        <HomeButton className='w-fit' />
+        <h1 class='card-title text-2xl font-extrabold'>404 — Page Not Found</h1>
+        <p class='text-sm opacity-75'>
+          That URL does not exist on sknl.dev. Explore the main sections below or query the site directly via the Search for Agents endpoint.
+        </p>
+        <ul class='list space-y-2 text-sm'>
+          <li><a href='/' class='link'>Home &amp; Overview</a></li>
+          <li><a href='/about' class='link'>About &amp; Work Experience</a></li>
+          <li><a href='/project' class='link'>Projects &amp; Free Tools</a></li>
+          <li><a href='/blog' class='link'>Technical Blog</a></li>
+          <li><a href='/llms.txt' class='link'>llms.txt</a></li>
+          <li><a href='/.well-known/ai-catalog.json' class='link'>AI Resource Catalog</a></li>
+        </ul>
+      </div>
+    </div>
+  </CenteredLayout>
+</BaseLayout>

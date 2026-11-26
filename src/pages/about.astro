@@ -12,6 +12,7 @@ import {
   SITE_URL,
   SOCIAL_LINKS,
 } from '../consts';
+import { ABOUT_FAQS } from '../utils/agent-content';
 
 const about = await getEntry('about', 'about');
 if (!about) {
@@ -27,27 +28,9 @@ const renderedGigs = await Promise.all(
   })
 );
 
-const faqs = [
-  {
-    question: 'Who is Kenil Sudani (Super Kenil)?',
-    answer:
-      'Kenil Sudani is a full-stack software engineer from Gujarat, India with 4+ years of experience building web applications, free browser utilities, open-source developer tools, and AI automation systems. His primary site is sknl.dev (also reachable via superkenil.com).',
-  },
-  {
-    question: 'Is Kenil Sudani available for hiring or freelance work?',
-    answer:
-      `Yes. Kenil is open to full-time software engineering roles and freelance product or automation engagements. You can review his resume at ${SITE_URL}/Kenil-Sudani-Resume.pdf or contact him at ${SOCIAL_LINKS.email}.`,
-  },
-  {
-    question: 'What tools and open-source products has Kenil Sudani built?',
-    answer:
-      'His shipped tools include StyleX UI (55+ StyleX and Base UI components), paper pdf (32-tool privacy-first browser PDF toolkit), MediaGo (client-side FFmpeg/WASM converter and background remover), OMG (multiplayer browser games), super-detype (TypeScript-stripping CLI), and RustedZip (multi-core Rust Windows archiving tool).',
-  },
-];
-
 const faqJsonLD = {
   '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({
+  mainEntity: ABOUT_FAQS.map((faq) => ({
     '@type': 'Question',
     name: faq.question,
     acceptedAnswer: {
@@ -117,7 +100,7 @@ const faqJsonLD = {
 
         <section aria-labelledby='about-faq' class='space-y-3'>
           <h2 id='about-faq' class='font-extrabold text-lg'>Frequently Asked Questions</h2>
-          {faqs.map((faq) => (
+          {ABOUT_FAQS.map((faq) => (
             <div class='space-y-1'>
               <h3 class='font-semibold text-sm'>{faq.question}</h3>
               <p class='text-sm opacity-80'>{faq.answer}</p>

@@ -1,8 +1,19 @@
-# Allow all search-discovery, user-triggered, and model-training crawlers.
-# Search discovery (Googlebot, Bingbot, OAI-SearchBot, PerplexityBot, Claude-SearchBot, meta-webindexer, Cloudflare-AI-Search)
+# Allow external search-discovery, user-triggered, and model-training crawlers.
+# Search discovery (Googlebot, Bingbot, OAI-SearchBot, PerplexityBot, Claude-SearchBot, meta-webindexer)
 # and training/grounding agents (GPTBot, ClaudeBot, meta-externalagent, Google-Extended) are intentionally allowed.
 User-agent: *
 Content-Signal: ai-train=yes, search=yes, ai-input=yes
+Allow: /
+
+# Exclude non-HTML machine discovery files from Cloudflare AI Search site-search indexing
+# so the Search Modal only returns titled HTML pages instead of raw .txt/.json/.md files.
+User-agent: Cloudflare-AI-Search
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+Disallow: /llms.txt
+Disallow: /llms-full.txt
+Disallow: /.well-known/
+Disallow: /agent-search-index.json
+Disallow: /*.md$
 Allow: /
 
 Sitemap: https://sknl.dev/sitemap.xml

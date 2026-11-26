@@ -22,7 +22,9 @@ const {showGlobalThemePicker = true} = Astro.props;
       <SearchModal />
       {showGlobalThemePicker && <ThemePicker />}
     </div>
+    <Fragment set:html={'<!--email_off-->'} />
     <slot />
+    <Fragment set:html={'<!--/email_off-->'} />
     <SiteFooter />
     <script src='../scripts/keyboard-shortcuts.ts'></script>
   </body>

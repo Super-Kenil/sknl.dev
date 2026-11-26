@@ -34,18 +34,12 @@ import { AI_SEARCH_CONFIG, SITE_URL } from '../consts';
 
 <script is:inline type="module" src={AI_SEARCH_CONFIG.snippetScriptUrl}></script>
 
-<script
-  is:inline
-  define:vars={{
-    customBaseUrl: AI_SEARCH_CONFIG.customBaseUrl,
-    publicBaseUrl: AI_SEARCH_CONFIG.publicBaseUrl,
-    customHost: new URL(SITE_URL).hostname,
-  }}
->
+<script is:inline define:vars={{ customBaseUrl: AI_SEARCH_CONFIG.customBaseUrl, customHost: new URL(SITE_URL).hostname }}>
   function syncSearchModalConfig() {
     const modal = document.getElementById('ai-search-modal');
     if (modal) {
-      const targetUrl = window.location.hostname === customHost ? customBaseUrl : publicBaseUrl;
+      const targetUrl =
+        window.location.hostname === customHost ? `${window.location.origin}/` : customBaseUrl;
       if (modal.getAttribute('api-url') !== targetUrl) {
         modal.setAttribute('api-url', targetUrl);
       }

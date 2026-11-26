@@ -33,9 +33,6 @@ export const GET: APIRoute = async () => {
       priority: '0.7',
       changefreq: 'yearly',
     })),
-    { loc: `${site}/llms.txt`, lastmod: latest, priority: '0.5', changefreq: 'weekly' },
-    { loc: `${site}/llms-full.txt`, lastmod: latest, priority: '0.5', changefreq: 'weekly' },
-    { loc: `${site}/.well-known/ai-catalog.json`, lastmod: latest, priority: '0.4', changefreq: 'weekly' },
   ];
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

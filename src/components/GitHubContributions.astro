@@ -5,7 +5,7 @@ const githubUsername = SOCIAL_LINKS.github.slice(SOCIAL_LINKS.github.lastIndexOf
 const apiUrl = `https://github-contributions-api.jogruber.de/v4/${githubUsername}?y=last`;
 ---
 
-<section class='w-full max-w-3xl px-4 pt-8' aria-labelledby='github-activity-title'>
+<section class='w-full max-w-3xl mx-auto' aria-labelledby='github-activity-title'>
   <h2 id='github-activity-title' class='text-sm font-semibold'>GitHub activity</h2>
   <div data-github-contributions data-api-url={apiUrl} data-username={githubUsername}>
     <div class='mt-3 rounded-box border border-base-300 p-3'>

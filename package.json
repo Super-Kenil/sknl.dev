@@ -11,22 +11,22 @@
     "deploy": "bun run update-pdf && astro build && npx wrangler pages deploy dist"
   },
   "dependencies": {
-    "astro-icon": "^1.1.5"
+    "astro-icon": "^1.2.0"
   },
   "devDependencies": {
-    "@iconify-json/lucide": "^1.2.114",
-    "satori": "^0.26.0",
+    "@iconify-json/lucide": "^1.2.159",
+    "satori": "^0.63.2",
     "@resvg/resvg-js": "^2.6.2",
-    "@astrojs/react": "^5.0.7",
-    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/react": "^7.1.9",
+    "@astrojs/sitemap": "^3.7.6",
     "@tailwindcss/typography": "^0.5.20",
-    "@tailwindcss/vite": "^4.3.3",
-    "astro": "^6.4.8",
+    "@tailwindcss/vite": "^4.3.5",
+    "astro": "^7.4.13",
     "pdf-lib": "^1.17.1",
-    "tailwindcss": "^4.3.3",
+    "tailwindcss": "^4.3.5",
     "@iconify-json/ri": "^1.2.10",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
-    "daisyui": "^5.5.23"
+    "@types/react": "^19.3.3",
+    "@types/react-dom": "^19.3.0",
+    "daisyui": "^5.8.2"
   }
 }

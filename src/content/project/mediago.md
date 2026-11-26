@@ -2,7 +2,7 @@
 order: 4
 title: 'MediaGo'
 description: 'Video and image converter with client-side AI background removal and mask editing'
-image: '../../assets/images/mediago.png'
+image: '../../assets/images/mediago.svg'
 url: 'https://mediago.sknl.dev'
 gitUrl: 'https://github.com/Super-Kenil/mediago'
 techStack: 'React,Vite,FFmpeg,WebAssembly,Tailwind'

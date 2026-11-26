@@ -6,19 +6,26 @@ import {Icon} from 'astro-icon/components';
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HomeButton from '../../components/HomeButton.astro';
+import { AUTHOR_NAME, AUTHOR_NICKNAME } from '../../consts';
 
 const projects = (await getCollection('project')).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<BaseLayout>
+<BaseLayout
+  title={`Projects & Free Tools | ${AUTHOR_NICKNAME}`}
+  description={`Free browser utilities, open-source developer tools, and web apps built by ${AUTHOR_NAME} (${AUTHOR_NICKNAME}).`}
+>
   <main class='py-12 md:max-w-2xl max-w-sm grid grid-cols-1 md:grid-cols-2 gap-6 px-4 mx-auto'>
       <div class='flex flex-col col-span-2 gap-2'>
         <HomeButton className='w-fit mt-6 mb-2' />
-        <h1 class='text-2xl'>My Projects</h1>
+        <h1 class='text-2xl font-bold'>My Projects &amp; Free Tools</h1>
         <p transition:name="project-title">Current Benchmarks I'm Trying To Surpass</p>
+        <p class='text-sm opacity-75'>
+          A collection of free browser utilities, games, UI systems, and open-source developer CLI tools built by {AUTHOR_NAME}. Every project below runs live for end users and serves as practical proof of full-stack, WebAssembly, and frontend architecture work.
+        </p>
       </div>
       {
-        projects.map(({data: project}, index) => {
+        projects.map(({id, data: project}, index) => {
           const isSvg = project.image.format === 'svg';
           const ProjectSvg = project.image as unknown as SvgComponent;
           return (
@@ -35,15 +42,33 @@ const projects = (await getCollection('project')).sort((a, b) => a.data.order - 
               </div>
               <div class='card-body gap-4'>
                 <h2 class='flex items-center justify-between'>
-                  <span class='font-semibold text-lg'>{project.title}</span>
+                  <a href={`/project/${id}`} class='font-semibold text-lg link link-hover'>{project.title}</a>
                   <div class='flex items-center gap-x-2'>
                     {project.url && (
-                      <a href={project.url} target='_blank' rel='noopener noreferrer' class='btn btn-square btn-sm min-w-11 min-h-11' aria-label={`Visit ${project.title} website`}>
+                      <a
+                        href={project.url}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        class='btn btn-square btn-sm min-w-11 min-h-11'
+                        aria-label={`Visit ${project.title} website`}
+                        data-ga-event='project_link_click'
+                        data-ga-project={project.title}
+                        data-ga-link-type='live'
+                      >
                         <Icon name='lucide:globe' size={16} />
                       </a>
                     )}
                     {project.gitUrl && (
-                      <a href={project.gitUrl} target='_blank' rel='noopener noreferrer' class='btn btn-square btn-sm min-w-11 min-h-11' aria-label={`View ${project.title} source on GitHub`}>
+                      <a
+                        href={project.gitUrl}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        class='btn btn-square btn-sm min-w-11 min-h-11'
+                        aria-label={`View ${project.title} source on GitHub`}
+                        data-ga-event='project_link_click'
+                        data-ga-project={project.title}
+                        data-ga-link-type='github'
+                      >
                         <Icon name='lucide:github' size={16} />
                       </a>
                     )}

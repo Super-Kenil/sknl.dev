@@ -4,6 +4,7 @@ title: 'OMG (One More Game)'
 description: 'Tiny browser games built with a focus on multiplayer, playable in a click'
 image: '../../assets/images/omg.svg'
 url: 'https://onemorega.me'
+category: 'GameApplication'
 techStack: 'React,Three.js,Vite,Turborepo'
 ---
 

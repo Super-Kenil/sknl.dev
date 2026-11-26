@@ -1,29 +1,129 @@
 ---
-import {render} from 'astro:content';
-import {getEntry} from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 
 import HomeButton from '../components/HomeButton.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CenteredLayout from '../layouts/CenteredLayout.astro';
-import { AUTHOR_NAME, AUTHOR_NICKNAME } from '../consts';
+import {
+  ALT_SITE_URL,
+  AUTHOR_NAME,
+  AUTHOR_NICKNAME,
+  AUTHOR_SKILLS,
+  SITE_URL,
+  SOCIAL_LINKS,
+} from '../consts';
 
 const about = await getEntry('about', 'about');
 if (!about) {
   throw new Error('Could not find about entry');
 }
-const {Content: AboutContent} = await render(about);
+const { Content: AboutContent } = await render(about);
+
+const gigs = await getCollection('gig');
+const renderedGigs = await Promise.all(
+  gigs.map(async (gig) => {
+    const { Content } = await render(gig);
+    return { gig, Content };
+  })
+);
+
+const faqs = [
+  {
+    question: 'Who is Kenil Sudani (Super Kenil)?',
+    answer:
+      'Kenil Sudani is a full-stack software engineer from Gujarat, India with 4+ years of experience building web applications, free browser utilities, open-source developer tools, and AI automation systems. His primary site is sknl.dev (also reachable via superkenil.com).',
+  },
+  {
+    question: 'Is Kenil Sudani available for hiring or freelance work?',
+    answer:
+      `Yes. Kenil is open to full-time software engineering roles and freelance product or automation engagements. You can review his resume at ${SITE_URL}/Kenil-Sudani-Resume.pdf or contact him at ${SOCIAL_LINKS.email}.`,
+  },
+  {
+    question: 'What tools and open-source products has Kenil Sudani built?',
+    answer:
+      'His shipped tools include StyleX UI (55+ StyleX and Base UI components), paper pdf (32-tool privacy-first browser PDF toolkit), MediaGo (client-side FFmpeg/WASM converter and background remover), OMG (multiplayer browser games), super-detype (TypeScript-stripping CLI), and RustedZip (multi-core Rust Windows archiving tool).',
+  },
+];
+
+const faqJsonLD = {
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+};
 ---
 
-<BaseLayout title={`About | ${AUTHOR_NICKNAME}`} description={`The story of ${AUTHOR_NAME} - from a small town in Gujarat to SDE`}>
+<BaseLayout
+  title={`About & Experience | ${AUTHOR_NICKNAME}`}
+  description={`${AUTHOR_NAME} (${AUTHOR_NICKNAME}) — Full-stack software engineer from Gujarat, India with 4+ years of experience. Work history, skills, shipped tools, and hiring contact.`}
+  customJsonLD={faqJsonLD}
+>
   <CenteredLayout>
     <div class='card card-border'>
-      <div class='card-body'>
-        <HomeButton className='mb-2' />
-        <h1 class='card-title font-extrabold text-2xl'>{AUTHOR_NAME}</h1>
-        <span class='font-extrabold text-lg block mt-4' aria-label='about me'>The Story</span>
-        <div class='prose prose-sm' transition:animate="fade">
-          <AboutContent />
+      <div class='card-body space-y-6'>
+        <div>
+          <HomeButton className='mb-2' />
+          <h1 class='card-title font-extrabold text-2xl'>{AUTHOR_NAME}</h1>
+          <p class='text-sm opacity-80 mt-2'>
+            {AUTHOR_NAME} (<strong>{AUTHOR_NICKNAME}</strong>) is a full-stack software engineer from Gujarat, India with 4+ years of experience building web applications, free browser tools, and AI automation systems. Primary site: <a href={SITE_URL} class='link'>sknl.dev</a> (also owns <a href={ALT_SITE_URL} class='link' rel='noopener noreferrer'>superkenil.com</a>). Open to engineering roles and freelance projects.
+          </p>
+          <div class='flex flex-wrap gap-2 mt-4'>
+            <a href='/Kenil-Sudani-Resume.pdf' target='_blank' rel='noopener noreferrer' class='btn btn-xs btn-outline'>Resume (PDF)</a>
+            <a href='/project' class='btn btn-xs btn-outline'>View 13+ Projects</a>
+            <a href={`mailto:${SOCIAL_LINKS.email}`} class='btn btn-xs btn-primary'>Email {SOCIAL_LINKS.email}</a>
+          </div>
         </div>
+
+        <section aria-labelledby='about-story'>
+          <h2 id='about-story' class='font-extrabold text-lg mb-2'>The Story</h2>
+          <div class='prose prose-sm' transition:animate="fade">
+            <AboutContent />
+          </div>
+        </section>
+
+        <section aria-labelledby='about-experience' class='space-y-4'>
+          <h2 id='about-experience' class='font-extrabold text-lg'>Work Experience</h2>
+          {renderedGigs.map(({ gig, Content }) => (
+            <article class='rounded-box border border-base-300 p-4 space-y-2'>
+              <div class='flex flex-wrap items-baseline justify-between gap-2'>
+                <h3 class='font-semibold text-base'>{gig.data.role} — {gig.data.name}</h3>
+                <span class='text-xs opacity-60'>{gig.data.timeline}</span>
+              </div>
+              <div class='prose prose-sm'>
+                <Content />
+              </div>
+              <div class='flex flex-wrap gap-1 pt-1'>
+                {gig.data.techStack.map((tech: string) => (
+                  <span class='badge badge-xs'>{tech}</span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </section>
+
+        <section aria-labelledby='about-skills' class='space-y-2'>
+          <h2 id='about-skills' class='font-extrabold text-lg'>Core Technical Stack</h2>
+          <div class='flex flex-wrap gap-1.5'>
+            {AUTHOR_SKILLS.map((skill) => (
+              <span class='badge badge-sm badge-outline'>{skill}</span>
+            ))}
+          </div>
+        </section>
+
+        <section aria-labelledby='about-faq' class='space-y-3'>
+          <h2 id='about-faq' class='font-extrabold text-lg'>Frequently Asked Questions</h2>
+          {faqs.map((faq) => (
+            <div class='space-y-1'>
+              <h3 class='font-semibold text-sm'>{faq.question}</h3>
+              <p class='text-sm opacity-80'>{faq.answer}</p>
+            </div>
+          ))}
+        </section>
       </div>
     </div>
   </CenteredLayout>

@@ -1,9 +1,9 @@
 ---
-import {getCollection, render} from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HomeButton from '../../components/HomeButton.astro';
-import { AUTHOR_NAME, AUTHOR_NICKNAME } from '../../consts';
+import { AUTHOR_NAME, AUTHOR_NICKNAME, SOCIAL_LINKS } from '../../consts';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -15,6 +15,20 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+const faqJsonLD = post.data.faqs?.length
+  ? {
+      '@type': 'FAQPage',
+      mainEntity: post.data.faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.answer,
+        },
+      })),
+    }
+  : undefined;
 ---
 
 <BaseLayout
@@ -24,9 +38,11 @@ const { Content } = await render(post);
   ogImage={`/blog/${post.id}.png`}
   articleData={{
     publishDate: post.data.date,
+    updatedDate: post.data.updatedDate,
     tags: post.data.tags,
-    author: AUTHOR_NAME
+    author: AUTHOR_NAME,
   }}
+  customJsonLD={faqJsonLD}
 >
   <main class='flex flex-col mx-auto py-12 max-w-2xl px-4'>
     <article>
@@ -35,13 +51,27 @@ const { Content } = await render(post);
           <HomeButton href='/blog' label='Back to posts' className='w-fit opacity-80' />
         </div>
         <h1 class='text-3xl font-bold mb-2' transition:name={`blog-post-${post.id}`}>{post.data.title}</h1>
-        <p class='text-sm opacity-70 mb-2' transition:name={`blog-desc-${post.id}`}>{post.data.description}</p>
-        <div class='flex items-center gap-3 text-sm opacity-70'>
+        <p class='text-sm opacity-70 mb-3' transition:name={`blog-desc-${post.id}`}>{post.data.description}</p>
+        <div class='flex flex-wrap items-center gap-x-3 gap-y-2 text-sm opacity-70'>
+          <span>
+            By <a href='/about' class='link link-hover font-medium'>{AUTHOR_NAME}</a>
+          </span>
+          <span aria-hidden='true'>·</span>
           <time datetime={post.data.date.toISOString()} transition:name={`blog-date-${post.id}`}>
             {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
           </time>
+          {post.data.updatedDate && (
+            <>
+              <span aria-hidden='true'>·</span>
+              <span>
+                Updated <time datetime={post.data.updatedDate.toISOString()}>
+                  {post.data.updatedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+              </span>
+            </>
+          )}
           {post.data.tags && (
-            <div class='flex gap-1' transition:name={`blog-tags-${post.id}`}>
+            <div class='flex flex-wrap gap-1' transition:name={`blog-tags-${post.id}`}>
               {post.data.tags.map((tag: string) => (
                 <span class='badge badge-xs'>{tag}</span>
               ))}
@@ -52,7 +82,26 @@ const { Content } = await render(post);
 
       <div class='prose prose-sm' transition:animate="fade">
         <Content />
+
+        {post.data.faqs && post.data.faqs.length > 0 && (
+          <section aria-labelledby='post-faq'>
+            <h2 id='post-faq'>Frequently Asked Questions</h2>
+            {post.data.faqs.map((faq) => (
+              <>
+                <h3>{faq.question}</h3>
+                <p>{faq.answer}</p>
+              </>
+            ))}
+          </section>
+        )}
       </div>
+
+      <aside class='mt-10 rounded-box border border-base-300 p-4 text-sm space-y-2'>
+        <p class='font-semibold'>About the author — {AUTHOR_NAME} ({AUTHOR_NICKNAME})</p>
+        <p class='opacity-80'>
+          Full-stack developer from Gujarat, India building free web tools and AI automation workflows. Check out my <a href='/project' class='link'>shipped projects</a>, <a href='/about' class='link'>work experience</a>, or contact <a href={`mailto:${SOCIAL_LINKS.email}`} class='link'>{SOCIAL_LINKS.email}</a> for engineering roles and freelance work.
+        </p>
+      </aside>
     </article>
 
     <div class='divider my-8' transition:animate="fade"></div>

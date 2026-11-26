@@ -2,43 +2,41 @@
 title: 'I am Open Sourcing My Portfolio'
 description: '100 Lighthouse score, dynamic OG images, and type-safe markdown. Here is why you should steal my code.'
 date: 2026-05-13
+updatedDate: 2026-11-26
 tags: ['open-source', 'portfolio', 'astro', 'webdev', 'performance', 'seo', 'typescript', 'minimalism']
+faqs:
+  - question: 'What tech stack powers sknl.dev?'
+    answer: 'sknl.dev is built with Astro static site generation, Tailwind CSS 4, DaisyUI 5, TypeScript, Zod-validated content collections, and Satori plus @resvg/resvg-js for build-time dynamic Open Graph PNG generation.'
+  - question: 'Where is the sknl.dev source code hosted?'
+    answer: 'The complete portfolio repository is open source under the MIT license on GitHub at https://github.com/Super-Kenil/sknl.dev.'
 ---
 
-A couple of friends recently asked for the source code to this site. 
+**`sknl.dev` is an open-source developer portfolio template** built with Astro, Tailwind CSS v4, DaisyUI 5, Zod-validated Markdown collections, and automated Satori Open Graph PNG generation. Designed by [Kenil Sudani](/about) for speed and clean SEO, the entire codebase is MIT-licensed on [GitHub](https://github.com/Super-Kenil/sknl.dev).
 
-They wanted the SEO setup, the 100 Lighthouse score, the minimalist design, and those simple page transitions. I shared it with them privately, but realized something: keeping a personal portfolio closed-source is a waste.
+A couple of friends recently asked for the source code to this site—specifically the SEO setup, fast static output, minimalist layout, and page transitions. Keeping a personal portfolio closed-source felt unnecessary, so it is open for anyone to fork.
 
-So, I'm opening it up. You can steal it [on GitHub](https://github.com/Super-Kenil/sknl.dev).
+## Architecture Overview
 
-Here is why you probably should.
+| Layer | Implementation | Purpose |
+|---|---|---|
+| **Static Site Framework** | Astro (`output: 'static'`) | Ships zero-JS HTML by default with view transitions |
+| **Styling &amp; Themes** | Tailwind CSS v4 + DaisyUI 5 | Minimal CSS footprint with multi-theme support |
+| **Type-Safe Content** | `src/content.config.ts` + Zod | Validates blog, project, and experience frontmatter at build time |
+| **Dynamic OG Images** | `src/pages/blog/[id].png.ts` (`satori` + `@resvg/resvg-js`) | Generates 1200×630 PNG social preview cards for every post |
+| **Search &amp; AI Discovery** | `sitemap.xml.ts`, `llms.txt.ts`, `llms-full.txt.ts`, JSON-LD | Exposes structured metadata for search engines and AI agents |
 
-## 1. 100 Lighthouse Score + Premium Aesthetics
+## 1. Fast Static Performance + Minimalist UI
 
-Getting a perfect performance score is easy if your site looks like a plain text document. Getting it with a premium, minimalist design and fluid page transitions? That takes work. 
+Getting high Lighthouse scores is easy if a site looks like an unstyled text file. Keeping pages snappy while supporting smooth transitions and theme switching takes deliberate restraint in client-side JavaScript.
 
-This repo proves you can have both. It is fast, but it doesn't look cheap.
+## 2. Dynamic OG Images at Build Time
 
-## 2. Dynamic OG Images on the Edge
+Manually designing social cards in Figma for every article slows down publishing. `src/pages/blog/[id].png.ts` converts post titles and descriptions via `satori` into SVG and renders crisp PNGs with `@resvg/resvg-js` automatically during the build.
 
-Most personal sites skip Open Graph images or force you to manually create them in Figma for every single blog post. That is exhausting.
+## 3. Type-Safe Content Collections
 
-This site does it dynamically at build time. No manual work. Beautiful, text-fitted images for every post you write.
+`src/content.config.ts` validates every Markdown entry with `zod`, catching missing titles, invalid dates, or malformed URLs before deployment.
 
-## 3. Type-Safe Content
+## Fork and Customize It
 
-Ever broken your site build because you typo'd a tag in your markdown frontmatter? Not anymore. Your content should be as strictly typed as your code.
-
-## How It Works Under the Hood
-
-The repo is lean. Here are the three gears making it happen:
-
-- **Sitemap Generation**: `src/pages/sitemap.xml.ts` dynamically pulls all blog posts using `getCollection` and builds the XML at build time. Zero manual updates.
-- **Dynamic OG Images**: `src/pages/blog/[id].png.ts` uses `satori` to turn HTML/CSS into SVG, then `@resvg/resvg-js` renders it into a PNG. Automated social previews for every post.
-- **Zod Frontmatter**: `src/content.config.ts` uses `zod` to validate markdown metadata. If you forget a title or date, the build fails. Type-safety for your content.
-
-## Take It
-
-The code is yours. [Fork it on GitHub](https://github.com/Super-Kenil/sknl.dev), rip out my name, change the colors, and use it. 
-
-Ship your portfolio. Then get back to building things that matter.
+Clone [Super-Kenil/sknl.dev](https://github.com/Super-Kenil/sknl.dev), swap in your own `src/consts.ts` and `src/content/` Markdown files, and deploy—or browse my [live tools and projects](/project) to see what else I build.

@@ -1,6 +1,15 @@
 ---
 import '../styles/global.css';
-import { SITE_URL, AUTHOR_NAME, AUTHOR_NICKNAME, SITE_DESCRIPTION, SOCIAL_LINKS } from '../consts';
+import {
+	ALT_SITE_URL,
+	AUTHOR_NAME,
+	AUTHOR_NICKNAME,
+	AUTHOR_ROLE,
+	AUTHOR_SKILLS,
+	SITE_DESCRIPTION,
+	SITE_URL,
+	SOCIAL_LINKS,
+} from '../consts';
 
 type Props = {
 	title?: string | undefined;
@@ -9,9 +18,11 @@ type Props = {
 	ogImage?: string | undefined;
 	articleData?: {
 		publishDate: Date;
+		updatedDate?: Date;
 		tags?: string[];
 		author?: string;
 	} | undefined;
+	customJsonLD?: Record<string, unknown> | Record<string, unknown>[] | undefined;
 }
 
 const {
@@ -20,29 +31,34 @@ const {
 	ogType = 'website',
 	ogImage = '/og-image.webp',
 	articleData,
+	customJsonLD,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname.replace(/(.)\/+$/, '$1'), SITE_URL);
 const siteURL = SITE_URL;
 
-// JSON-LD structured data
-let jsonLD: any = {
-	"@context": "https://schema.org",
+const personEntity = {
 	"@type": "Person",
+	"@id": `${siteURL}/#person`,
 	"name": AUTHOR_NAME,
 	"alternateName": AUTHOR_NICKNAME,
 	"url": siteURL,
-	"jobTitle": "Developer",
+	"description": SITE_DESCRIPTION,
+	"image": new URL('/og-image.webp', siteURL).toString(),
+	"jobTitle": AUTHOR_ROLE,
+	"email": `mailto:${SOCIAL_LINKS.email}`,
+	"knowsAbout": [...AUTHOR_SKILLS],
 	"worksFor": {
 		"@type": "Organization",
-		"name": "Freelance"
+		"name": "Independent / Available for Hire"
 	},
 	"sameAs": [
 		SOCIAL_LINKS.github,
 		SOCIAL_LINKS.twitter,
 		SOCIAL_LINKS.linkedin,
 		SOCIAL_LINKS.bluesky,
-		SOCIAL_LINKS.npm
+		SOCIAL_LINKS.npm,
+		ALT_SITE_URL,
 	],
 	"address": {
 		"@type": "PostalAddress",
@@ -51,28 +67,53 @@ let jsonLD: any = {
 	}
 };
 
+const extraEntities = customJsonLD
+	? (Array.isArray(customJsonLD) ? customJsonLD : [customJsonLD])
+	: [];
+
+let jsonLD: Record<string, unknown>;
+
 if (ogType === 'article' && articleData) {
-	jsonLD = {
-		"@context": "https://schema.org",
+	const blogPostingEntity: Record<string, unknown> = {
 		"@type": "BlogPosting",
 		"headline": title,
 		"description": description,
+		"image": new URL(ogImage, siteURL).toString(),
 		"author": {
-			"@type": "Person",
-			"name": articleData.author || AUTHOR_NAME,
-			"url": siteURL
+			"@id": `${siteURL}/#person`
 		},
 		"datePublished": articleData.publishDate.toISOString(),
+		"dateModified": (articleData.updatedDate ?? articleData.publishDate).toISOString(),
 		"url": canonicalURL.toString(),
 		"mainEntityOfPage": {
 			"@type": "WebPage",
 			"@id": canonicalURL.toString()
 		},
 		"publisher": {
-			"@type": "Person",
-			"name": AUTHOR_NAME,
-			"url": siteURL
-		}
+			"@id": `${siteURL}/#person`
+		},
+	};
+	if (articleData.tags?.length) {
+		blogPostingEntity.keywords = articleData.tags.join(', ');
+	}
+	jsonLD = {
+		"@context": "https://schema.org",
+		"@graph": [personEntity, blogPostingEntity, ...extraEntities],
+	};
+} else {
+	const websiteEntity = {
+		"@type": "WebSite",
+		"@id": `${siteURL}/#website`,
+		"name": `${AUTHOR_NICKNAME} (${AUTHOR_NAME})`,
+		"url": siteURL,
+		"description": SITE_DESCRIPTION,
+		"publisher": {
+			"@id": `${siteURL}/#person`
+		},
+	};
+	jsonLD = {
+		"@context": "https://schema.org",
+		"@graph": [websiteEntity, personEntity, ...extraEntities],
 	};
 }
 ---
@@ -108,6 +149,9 @@ if (ogType === 'article' && articleData) {
 {ogType === 'article' && articleData && (
     <>
         <meta property="article:published_time" content={articleData.publishDate.toISOString()} />
+        {articleData.updatedDate && (
+            <meta property="article:modified_time" content={articleData.updatedDate.toISOString()} />
+        )}
         {articleData.author && <meta property="article:author" content={articleData.author} />}
         {articleData.tags?.map(tag => (
             <meta property="article:tag" content={tag} />
@@ -131,6 +175,8 @@ if (ogType === 'article' && articleData) {
 <!-- Sitemap & Discovery -->
 <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 <link rel="author" href="/llms.txt" />
+<link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt" />
+<link rel="alternate" type="text/plain" title="llms-full.txt" href="/llms-full.txt" />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">

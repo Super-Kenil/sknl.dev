@@ -12,6 +12,7 @@ const project = defineCollection({
       imgParentClass: z.string().optional(),
       url: z.string().url().optional(),
       gitUrl: z.string().url().optional(),
+      category: z.string().optional(),
       techStack: z.string()
         .transform((val: string) => val.split(','))
         .transform((val: string[]) => val.map((item: string) => item.trim()))
@@ -46,7 +47,12 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
     tags: z.array(z.string()).optional(),
+    faqs: z.array(z.object({
+      question: z.string(),
+      answer: z.string(),
+    })).optional(),
   }),
 })
 

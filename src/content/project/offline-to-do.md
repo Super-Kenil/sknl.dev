@@ -5,6 +5,7 @@ description: 'A minimal To-Do and Reminders app that works offline using SQLite'
 image: '../../assets/images/todo.png'
 url: 'https://local-todo.sknl.dev'
 gitUrl: 'https://github.com/Super-Kenil/offline-todo'
+category: 'ProductivityApplication'
 techStack: 'SQLite,PWA,AI'
 ---
 

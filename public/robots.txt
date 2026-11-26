@@ -1,3 +1,6 @@
+# Allow all search-discovery, user-triggered, and model-training crawlers.
+# Search discovery (Googlebot, Bingbot, OAI-SearchBot, PerplexityBot, Claude-SearchBot, meta-webindexer)
+# and training/grounding agents (GPTBot, ClaudeBot, meta-externalagent, Google-Extended) are intentionally allowed.
 User-agent: *
 Allow: /
 

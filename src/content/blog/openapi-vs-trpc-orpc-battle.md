@@ -2,64 +2,80 @@
 title: 'OpenAPI vs. The Ecosystem: Why oRPC is Chasing the tRPC Crown'
 description: "Type safety shouldn't mean sacrificing standards. tRPC gave us the DX, but oRPC is bringing the spec. A no-nonsense breakdown of the four ways we fetch data today and why the 'o' in oRPC is a game changer."
 date: 2026-03-15
+updatedDate: 2026-11-26
 tags: ['typescript', 'trpc', 'orpc', 'openapi', 'web-development', 'api-design', 'react-query', 'backend']
+faqs:
+  - question: 'What is the main difference between tRPC and oRPC?'
+    answer: 'Both tRPC and oRPC provide end-to-end TypeScript type safety from backend to frontend, but oRPC also gives you native OpenAPI specification generation and explicit URL/HTTP method control for external or multi-language API consumers.'
+  - question: 'When should you choose oRPC over Server Functions or raw fetch?'
+    answer: 'Choose oRPC when you want TypeScript type safety and Zod validation while still needing standard REST/OpenAPI endpoints for Postman testing, third-party integrations, or non-TypeScript clients such as Go or Rust.'
+  - question: 'When is tRPC still the better choice?'
+    answer: 'tRPC remains a great fit for TypeScript monorepos (such as Next.js plus React Native) where every API consumer lives inside your own codebase and you do not need to publish an external OpenAPI specification.'
 ---
 
-Fetching data used to be simple but now there are so many ways people tell you to do it. I was watching a video about this recently and it really cleared things up.
+**Quick answer:** Use **raw `fetch`** when you want full manual HTTP control, **Server Functions** for simple framework-coupled SSR, **tRPC** for internal TypeScript monorepos, and **oRPC** when you want end-to-end TypeScript safety **plus** native OpenAPI spec generation for external or multi-language clients.
 
-Here is the breakdown so you don't have to watch it or read those long boring corporate blogs.
+Fetching data used to be simple, but modern TypeScript apps now pick between four main approaches. Here is the practical breakdown without the corporate fluff.
+
+## Comparison: Raw API vs. Server Functions vs. tRPC vs. oRPC
+
+| Approach | End-to-End Type Safety | OpenAPI Support | URL &amp; Method Control | Framework Lock-In | Best For |
+|---|---|---|---|---|---|
+| **Raw API (`fetch` / TanStack Query)** | Manual | Optional (manual) | Full | None | Custom REST/GraphQL APIs |
+| **Server Functions** | Automatic | None | None | High (Next.js / TanStack) | Simple full-stack framework apps |
+| **tRPC** | Automatic | Third-party plugins only | RPC conventions | Low (TS ecosystems) | Internal TypeScript monorepos |
+| **oRPC** | Automatic (with Zod) | Native (`openapi.json`) | Full | Low | Type-safe APIs needing OpenAPI specs |
 
 ## 1. Raw API Requests
-This is the old school way. You use fetch or TanStack Query and manually write your TypeScript types on the client side.
+This is the classic approach: use `fetch` or TanStack Query and maintain your request/response TypeScript types on the client.
 
-Pros:
+**Pros:**
 * Complete control over your URLs
-* You can choose HTTP methods and response payloads exactly how you want
+* Full choice over HTTP methods and response payloads
 
-Cons:
+**Cons:**
 * No automatic type safety between frontend and backend
-* If the backend changes something your frontend breaks and you wont know until it crashes
-* You have to manually set up auth and validation with things like Zod
+* Backend changes can silently break the frontend until runtime
+* Requires wiring up auth and schema validation manually (for example with Zod)
 
 ## 2. Server Functions
-This is the framework specific magic stuff like createServerFunction. You write backend logic right inside your frontend code.
+Framework-coupled helpers such as `createServerFunction` let you write server logic right alongside frontend code.
 
-Pros:
-* End to end type safety happens automatically
-* Makes SSR data fetching really simple
-* Built in validation
+**Pros:**
+* Automatic end-to-end type safety
+* Straightforward SSR data fetching
+* Built-in input validation patterns
 
-Cons:
-* Zero control over what the URL actually looks like
-* You are locked into that framework. Nextjs stuff wont work in TanStack
+**Cons:**
+* Little to no control over generated endpoint URLs
+* Tightly coupled to a specific framework (Next.js patterns do not port directly to TanStack)
 
 ## 3. tRPC
-This one is huge right now. It is built on top of React Query and gives you end to end type safety.
+tRPC pairs naturally with React Query to give TypeScript teams instant client-to-server type inference.
 
-Pros:
-* Amazing type safety routing from server to client
-* Great parameter validation and protected procedures for auth
-* Easy to share types across a monorepo for things like React Native
+**Pros:**
+* Strong type safety from router procedures to React hooks
+* Clean parameter validation and protected middleware procedures for auth
+* Easy type sharing across a monorepo (including React Native)
 
-Cons:
-* Does not follow external standards like OpenAPI out of the box so you can't easily share your API with other teams
+**Cons:**
+* Does not follow external standards like OpenAPI out of the box, making it harder to expose the API to external teams or non-JS clients
 
 ## 4. oRPC
-This is the newer competitor to tRPC and it focuses heavily on standardization.
+oRPC targets the same developer experience as tRPC while prioritizing HTTP and OpenAPI standards.
 
-Pros:
-* Full control over URLs and methods
-* Built in Zod integration for input validation
-* Native OpenAPI support
+**Pros:**
+* Full control over REST-style URLs and HTTP methods
+* Built-in Zod integration for input and output validation
+* Native OpenAPI support out of the box
 
-With oRPC you can automatically generate an openapi.json file. You can put that right into Postman to test or use it to generate clients for Go or Rust. That is massive if you have external API clients.
+With oRPC, you can generate an `openapi.json` document directly from your procedures and import it into Postman or generate typed clients for Go, Rust, or Python. That is a major advantage once external clients enter the picture.
 
-## Final Verdict
-What should you actually use?
+## Final Verdict: Which Should You Choose?
 
-* Raw APIs if you need maximum control
-* Server Functions if you just want simplicity and are locked to a framework anyway
-* tRPC for robust internal apps where you want type safety everywhere
-* oRPC if you need type safety but also need OpenAPI compliance for external clients
+* **Raw APIs** if you need maximum custom HTTP control
+* **Server Functions** if you want simplicity inside one full-stack framework
+* **tRPC** for internal TypeScript monorepos where every consumer shares types
+* **oRPC** if you want tRPC-grade TypeScript DX while staying OpenAPI-compliant for external or multi-language clients
 
-Pick the one that fits your project and start building.
+Pick the one that matches who consumes your API and start shipping.

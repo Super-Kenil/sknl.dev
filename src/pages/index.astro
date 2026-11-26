@@ -27,7 +27,9 @@ const socialLinks = [
         </div>
         <p transition:animate="fade">Friendly Neighbourhood Nerd</p>
 
-        <p class='text-sm opacity-75 mt-2' transition:animate="fade">Full-stack developer from Gujarat. I build tools that solve real problems and occasionally write about what I learn. Mostly posting on <a href={SOCIAL_LINKS.twitter} target='_blank' rel='noopener noreferrer' class='link'>X (Twitter)</a>.</p>
+        <p class='text-sm opacity-75 mt-2' transition:animate="fade">
+          Full-stack developer from Gujarat, India. I build free browser tools, open-source developer utilities, and AI automation systems—open to engineering roles and freelance inquiries. Mostly posting on <a href={SOCIAL_LINKS.twitter} target='_blank' rel='noopener noreferrer' class='link'>X (Twitter)</a>.
+        </p>
 
         <div class='divider invisible'></div>
 
@@ -35,7 +37,10 @@ const socialLinks = [
           <ul class='list rounded-box space-y-4'>
             <li class='group'>
               <a href='/about' class='link link-hover flex items-start justify-between' aria-keyshortcuts='1' data-keyboard-shortcut='1'>
-                <span>The Story</span>
+                <span>
+                  The Story
+                  <span class='block text-xs opacity-60'>Background, work experience &amp; hiring info</span>
+                </span>
                 <span class='flex items-center gap-2'>
                   <kbd class='kbd kbd-xs' aria-hidden='true'>1</kbd>
                   <Icon name='lucide:chevron-right' class='invisible group-hover:visible opacity-70' size={16} />
@@ -44,7 +49,10 @@ const socialLinks = [
             </li>
             <li class='group'>
               <a href='/project' class='link link-hover flex items-start justify-between' aria-keyshortcuts='2' data-keyboard-shortcut='2'>
-                <span transition:name="project-title">Current Benchmarks I'm Trying To Surpass</span>
+                <span>
+                  <span transition:name="project-title">Current Benchmarks I'm Trying To Surpass</span>
+                  <span class='block text-xs opacity-60'>Free web tools, OSS utilities &amp; shipped products</span>
+                </span>
                 <span class='flex items-center gap-2'>
                   <kbd class='kbd kbd-xs' aria-hidden='true'>2</kbd>
                   <Icon name='lucide:chevron-right' class='invisible group-hover:visible opacity-70' size={16} />
@@ -53,7 +61,10 @@ const socialLinks = [
             </li>
             <li class='group'>
               <a href='/blog' class='link link-hover flex items-start justify-between' aria-keyshortcuts='3' data-keyboard-shortcut='3'>
-                <span transition:name="blog-title">I Tried Writing</span>
+                <span>
+                  <span transition:name="blog-title">I Tried Writing</span>
+                  <span class='block text-xs opacity-60'>Technical articles on TypeScript, React, Bun &amp; AI</span>
+                </span>
                 <span class='flex items-center gap-2'>
                   <kbd class='kbd kbd-xs' aria-hidden='true'>3</kbd>
                   <Icon name='lucide:chevron-right' class='invisible group-hover:visible opacity-70' size={16} />
@@ -61,6 +72,11 @@ const socialLinks = [
               </a>
             </li>
           </ul>
+        </div>
+
+        <div class='flex flex-wrap items-center gap-2 mt-4'>
+          <a href='/Kenil-Sudani-Resume.pdf' target='_blank' rel='noopener noreferrer' class='btn btn-xs btn-outline'>Resume (PDF)</a>
+          <a href={`mailto:${SOCIAL_LINKS.email}`} class='btn btn-xs btn-primary'>Contact</a>
         </div>
 
         <div class='divider'></div>

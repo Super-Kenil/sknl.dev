@@ -5,6 +5,7 @@ description: 'Video and image converter with client-side AI background removal a
 image: '../../assets/images/mediago.svg'
 url: 'https://mediago.sknl.dev'
 gitUrl: 'https://github.com/Super-Kenil/mediago'
+category: 'MultimediaApplication'
 techStack: 'React,Vite,FFmpeg,WebAssembly,Tailwind'
 imgParentClass: 'w-auto h-40'
 ---

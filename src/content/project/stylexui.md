@@ -4,6 +4,7 @@ title: 'StyleX UI'
 description: 'Production-ready StyleX components, blocks, and templates'
 image: '../../assets/images/stylexui.png'
 url: 'https://stylexui.dev'
+category: 'DeveloperApplication'
 techStack: 'StyleX,React,TypeScript,Base UI,TanStack Start'
 imgParentClass: 'w-full'
 ---

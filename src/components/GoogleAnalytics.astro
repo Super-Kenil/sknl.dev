@@ -18,11 +18,36 @@ const measurementId = 'G-L3G2S33YHR';
       gtag('js', new Date());
       gtag('config', measurementId, { send_page_view: false });
 
-      document.addEventListener('astro:page-load', () => {
-        gtag('event', 'page_view', {
-          page_title: document.title,
-          page_location: window.location.href,
+      if (!window.__gaTrackingBound) {
+        window.__gaTrackingBound = true;
+
+        document.addEventListener('astro:page-load', () => {
+          gtag('event', 'page_view', {
+            page_title: document.title,
+            page_location: window.location.href,
+          });
         });
-      });
+
+        function trackLinkClick(event) {
+          if (event.type === 'auxclick' && event.button !== 1) return;
+          const link = event.target instanceof Element ? event.target.closest('a[data-ga-event]') : null;
+          if (!(link instanceof HTMLAnchorElement)) return;
+
+          const eventName = link.dataset.gaEvent;
+          if (!eventName) return;
+
+          const params = {
+            link_url: link.href,
+            transport_type: 'beacon',
+          };
+          if (link.dataset.gaProject) params.project_name = link.dataset.gaProject;
+          if (link.dataset.gaLinkType) params.link_type = link.dataset.gaLinkType;
+
+          gtag('event', eventName, params);
+        }
+
+        document.addEventListener('click', trackLinkClick);
+        document.addEventListener('auxclick', trackLinkClick);
+      }
     </script>
 )}

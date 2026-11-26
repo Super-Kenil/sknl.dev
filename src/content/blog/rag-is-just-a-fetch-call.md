@@ -2,41 +2,54 @@
 title: 'RAG is just a fetch call before your prompt'
 description: 'Retrieval Augmented Generation sounds complex, but for JS devs, it is just a fetch call before your prompt.'
 date: 2026-03-22
+updatedDate: 2026-11-26
 tags: ['ai', 'rag', 'llm', 'javascript']
+faqs:
+  - question: 'What is RAG (Retrieval Augmented Generation) in simple terms?'
+    answer: 'RAG is a pattern that searches your own docs or database for relevant context first and injects those retrieved passages into the LLM prompt before generating an answer, keeping responses accurate and up to date without retraining the model.'
+  - question: 'When should you use RAG instead of fine-tuning an LLM?'
+    answer: 'Use RAG when the model needs up-to-date facts, private company documents, or verifiable citations. Fine-tuning adjusts style or domain behavior, while RAG supplies fresh factual context at query time.'
+  - question: 'What are the three steps of a RAG pipeline?'
+    answer: 'A standard RAG pipeline runs Retrieval (searching embeddings or text indexes for relevant chunks), Augmentation (inserting retrieved chunks into the prompt template), and Generation (calling the LLM with that grounded context).'
 ---
 
-Everyone is talking about RAG (Retrieval Augmented Generation) like it is some dark magic. But if you are a JavaScript dev, you can think of it as a simple "middleware" for your AI prompts.
+## What is RAG?
 
-The problem with LLMs like GPT or Claude is that they have a cutoff date. They don't know about your private files, your new database entries, or what happened ten minutes ago.
+**Retrieval Augmented Generation (RAG)** is an AI architecture pattern that fetches relevant information from your own database or documents and injects it into an LLM prompt before generating an answer. For JavaScript developers, it works like middleware: a data `fetch()` step that grounds the model in fresh, private facts without retraining.
 
-RAG fixes this by giving the AI a temporary "brain" before it answers.
+LLMs like GPT or Claude have knowledge cutoffs and cannot see your private database rows, internal docs, or events from ten minutes ago. RAG solves that by giving the model temporary working context on every request.
 
-## How it works (The JS perspective)
+## RAG vs. Fine-Tuning vs. Plain Prompting
 
-Imagine you are building a support bot for your company. Instead of just sending the user's question to the AI, you do this:
+| Approach | Up-to-Date Knowledge | Accesses Private Data | Setup Cost | Best For |
+|---|---|---|---|---|
+| **Plain Prompting** | Cutoff-limited | Manual paste only | Lowest | General reasoning &amp; coding |
+| **RAG** | Real-time (on every query) | Yes (scoped per query) | Low–Medium | Docs search, support bots, private knowledge bases |
+| **Fine-Tuning** | Static after training | Baked into weights (harder to update) | Highest | Output tone, formatting, specialized style |
 
-1. **The Search:** You take the user's question and search your own database (usually a vector DB like Pinecone or pgvector) for relevant docs.
-2. **The Context:** You grab the text from those docs.
-3. **The Prompt:** You send a massive string to the AI that looks like this:
-   *"Use this info: [Your Docs] to answer this question: [User Question]"*
+## How RAG Works (The JS Perspective)
 
-It is basically a `fetch()` call for context before you hit the AI endpoint.
+Imagine building a support assistant for your product. Instead of sending the user's question straight to the model, you run three steps:
 
-## The Three Main Steps
+1. **The Search:** Take the user's question and query your database (for example, Pinecone, pgvector, or full-text search) for matching docs.
+2. **The Context:** Extract the most relevant text snippets from those docs.
+3. **The Prompt:** Send a single combined prompt containing those snippets plus the user's question to the LLM endpoint.
 
-### 1. The Retrieval
-This is just a similarity search. But instead of searching for keywords, we use "embeddings" which basically turn text into an array of numbers (vectors). It allows you to search for the *meaning* of a sentence.
+It is literally a context-retrieval call before your LLM request.
 
-### 2. The Augmentation
-You take the search results and "augment" your prompt. You are literally just concatenating strings.
+## The Three Main Steps of a RAG Pipeline
 
-### 3. The Generation
-The AI takes your soup of context and generates a response. Since it has the "facts" right there in the prompt, it is much less likely to hallucinate (make stuff up).
+### 1. Retrieval
+Convert queries and documents into vector embeddings (arrays of numbers capturing semantic meaning) or combine vector search with keyword search so you match intent, not only exact words.
 
-## Why you should care
+### 2. Augmentation
+Format the top matching chunks into a structured prompt template alongside the user's question. At this stage, you are combining retrieved text strings with clear instructions.
 
-*   **No Retraining:** You don't need to fine-tune a model (which is expensive and slow).
-*   **Up-to-date:** If you update your database, the AI "knows" immediately because it fetches that info on every request.
-*   **Privacy:** You can keep your private data on your own servers and only send specific parts to the AI when needed.
+### 3. Generation
+Send the augmented prompt to the model. Because the relevant facts are explicitly present in the context window, the model is far less likely to fabricate an answer.
 
-RAG is basically just turning an AI into a researcher who reads your project's docs before opening their mouth. If you can handle strings and API calls, you can build a RAG pipeline.
+## Why RAG Is Practical for Product Teams
+
+* **No retraining required:** Updating knowledge means updating database rows, not running expensive model training jobs.
+* **Always current:** New or edited documents become searchable immediately after indexing.
+* **Controlled data access:** Keep proprietary records on your own servers and pass only the relevant chunks needed for the current user's request.

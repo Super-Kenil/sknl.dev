@@ -5,6 +5,7 @@ description: 'Encodes and decodes base64 strings, keeps history'
 image: '../../assets/images/base64.png'
 url: 'https://base64.sknl.dev'
 gitUrl: 'https://github.com/Super-Kenil/base64'
+category: 'UtilitiesApplication'
 techStack: 'html'
 ---
 

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "skills": {
+    "ai-seo": {
+      "source": "coreyhaines31/marketingskills",
+      "commit": "8fd2fcade2fd6629026e9dfe6d133b55b36968b9",
+      "sourceType": "github",
+      "skillPath": "skills/ai-seo/SKILL.md",
+      "computedHash": "bb68811a6f0f5e2f734ae2683132d5932bdf4a1a9e109fd719fe9cf2a727a0ff"
+    }
+  }
+}

@@ -18,7 +18,16 @@ const formattedUpdatedAt = new Intl.DateTimeFormat('en', {
 }).format(buildDate);
 ---
 
-<footer class='mt-auto w-full px-4 py-6 text-center text-xs opacity-60'>
+<footer class='mt-auto w-full px-4 py-6 text-center text-xs opacity-60 space-y-2'>
+  <nav aria-label='Footer navigation' class='flex flex-wrap items-center justify-center gap-x-3 gap-y-1'>
+    <a href='/' class='link link-hover'>Home</a>
+    <a href='/about' class='link link-hover'>About</a>
+    <a href='/project' class='link link-hover'>Projects</a>
+    <a href='/blog' class='link link-hover'>Blog</a>
+    <a href='/Kenil-Sudani-Resume.pdf' target='_blank' rel='noopener noreferrer' class='link link-hover'>Resume</a>
+    <a href='/llms.txt' class='link link-hover'>llms.txt</a>
+    <a href='/llms-full.txt' class='link link-hover'>llms-full.txt</a>
+  </nav>
   <p>
     © {datePart('year')} {AUTHOR_NAME}
     <span aria-hidden='true'> · </span>

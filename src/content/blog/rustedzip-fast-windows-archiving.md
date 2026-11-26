@@ -2,31 +2,42 @@
 title: "RustedZip: Because Windows shouldn't take minutes to archive"
 description: 'Windows zipping is painfully slow. So I built a Rust tool to fix it.'
 date: 2026-03-01
+updatedDate: 2026-11-26
 tags: ['rust', 'productivity', 'windows', 'rustedzip']
+faqs:
+  - question: 'What is RustedZip?'
+    answer: 'RustedZip is an open-source, multi-threaded Windows archiving CLI and right-click Explorer utility written in Rust by Kenil Sudani to compress folders with many files in seconds instead of minutes.'
+  - question: 'Why is RustedZip faster than built-in Windows Explorer zipping?'
+    answer: 'Unlike the sequential, UI-bound built-in Windows compression flow, RustedZip uses Rayon to read files across CPU cores in parallel, BufReader and BufWriter for buffered I/O, and release LTO compiler optimizations.'
+  - question: 'Where can I download RustedZip?'
+    answer: 'The source code and Windows installation script (Install-RustedZip.ps1) are open source on GitHub at https://github.com/Super-Kenil/rustedzip.'
 ---
 
-If you've ever used a Mac or Linux, you know zipping a folder is basically instant. You hit compress, and it's done.
+**RustedZip** is an open-source, multi-threaded Rust archiving tool built for Windows by [Kenil Sudani](/about). By combining `rayon` parallelism, buffered file I/O, and Windows Explorer right-click integration, it compresses multi-gigabyte folders of small files in seconds instead of the minutes built-in Windows Explorer often takes.
 
-Then I moved to Windows for a project and reality hit me. Zipping a few gigs of data through the built-in Explorer tool? Minutes. Sometimes it straight up hangs. It's a complete productivity killer.
+If you've ever used a Mac or Linux, you know zipping a folder is basically instant. You hit compress, and it's done. Then I moved to Windows for a project and reality hit me: zipping a few gigs of data through the built-in Explorer tool took minutes and sometimes hung completely.
 
-I couldn't stand it anymore. So I vibe-coded a high-performance tool in Rust to handle it properly.
+## Why Default Windows Zipping Feels Slow
 
-## Why Windows is Slow
+The built-in Windows Explorer compression flow runs conservatively on I/O and UI progress updates. When a folder contains thousands of small source files or assets, sequential file reads and shell overhead dominate the runtime.
 
-The default Windows zip utility seems to run on a single thread and handles I/O very conservatively. When you have thousands of small files, the overhead of the UI and the sequential processing just kills the speed.
+## How RustedZip Is Engineered
 
-## The Solution: Rusted ZIP
-
-I designed the architecture and let AI help me fill in the heavy Rust lifting. The goal was simple: use every CPU core I have and stop wasting time on slow I/O.
+| Optimization Layer | Implementation | Purpose |
+|---|---|---|
+| **Parallelism** | `rayon` crate | Reads multiple files into memory concurrently across CPU cores |
+| **Buffered I/O** | `BufReader` &amp; `BufWriter` | Reduces tiny syscall overhead during archive reads/writes |
+| **Release Binary Profile** | `opt-level = 3`, `lto = true`, `codegen-units = 1` | Maximizes throughput and keeps the compiled executable compact |
+| **Shell Integration** | PowerShell + `Microsoft.Win32.Registry` | Adds right-click `"Rusted ZIP: Compress"` directly in Explorer |
 
 ### 1. Parallelism with Rayon
-Instead of zipping one file at a time, I used `rayon`. It reads multiple files into memory across all my CPU cores simultaneously. This alone makes it 3-5x faster than the default tool.
+Instead of processing one file at a time, `rayon` reads multiple files concurrently across available CPU cores.
 
 ### 2. Buffered I/O
-I used `BufReader` and `BufWriter` everywhere. Reading and writing in chunks instead of tiny individual calls saves a massive amount of system overhead.
+Using `BufReader` and `BufWriter` batches disk operations instead of issuing tiny unbuffered reads and writes for every small chunk.
 
 ### 3. Release Optimization
-I tuned the `Cargo.toml` for maximum performance. Using `lto = true` (Link Time Optimization) and `codegen-units = 1` makes the binary tiny and incredibly fast.
+The `Cargo.toml` release profile enables Link Time Optimization (`lto = true`), single codegen unit, and `opt-level = 3`:
 
 ```toml
 [profile.release]
@@ -36,41 +47,26 @@ codegen-units = 1
 panic = "abort"
 ```
 
-## The "Vibe" Integration
+## Windows Explorer Right-Click Integration
 
-A tool is only useful if it's easy to use. I didn't want to open a terminal every time I needed to zip a folder.
+A CLI tool only saves time if it fits your daily workflow. I wrote a PowerShell script (`Install-RustedZip.ps1`) using .NET `Microsoft.Win32.Registry` APIs to add RustedZip directly to the Windows Explorer right-click context menu.
 
-I wrote a PowerShell script that edits the Windows Registry to add "Rusted ZIP" directly to the right-click context menu. Now I just right-click a folder, hit "Rusted ZIP: Compress" and it's done in seconds.
-
-The script uses .NET calls (`Microsoft.Win32.Registry`) to bypass the usual PowerShell registry bugs. It's clean and it works.
-
-## How to Set It Up
-
-If you want to try it, here is the setup:
+## How to Set Up RustedZip on Windows
 
 1. **Place the binary:** Copy your compiled `rustedzip.exe` to `C:\Tools\rustedzip\`.
-2. **Install the Menu:** Run the `Install-RustedZip.ps1` script as an Administrator.
+2. **Install the context menu:** Run the PowerShell installer script as an Administrator:
 
 ```powershell
 # Run as Administrator
 .\Install-RustedZip.ps1
 ```
 
-Once installed, restart Explorer or just right-click something. You'll see the new options.
+Once installed, right-click any folder in Explorer to compress it without opening a terminal.
 
-## Try it yourself
+## Open Source Repository
 
-RustedZip is fully open-source. You can grab the code or the binary from the repository here: [github.com/Super-Kenil/rustedzip](https://github.com/Super-Kenil/rustedzip)
+RustedZip is an experimental open-source tool. You can inspect the Rust code or grab releases on GitHub: [github.com/Super-Kenil/rustedzip](https://github.com/Super-Kenil/rustedzip), or explore other utilities on the [projects page](/project).
 
-## Still an Experiment
+## My Practical Result
 
-This is still very much an experimental project. It's not a final "product" yet, and I'll be improving it over time to make it a solid alternative to the existing tools.
-
-
-## The Result
-
-I went from waiting 5-15 minutes for a zipping to under 2-3 seconds.
-
-It's not just about the seconds saved. It's about not breaking your "flow" state because your operating system is decidely slow.
-
-Your OS should work for you, not the other way around.
+On my own multi-gigabyte project folders on Windows, archiving dropped from 5–15 minutes in Explorer down to roughly 2–3 seconds—keeping my workflow moving without waiting on the OS.

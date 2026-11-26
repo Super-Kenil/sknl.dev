@@ -1,0 +1,125 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import type { SvgComponent } from 'astro/types';
+import { Icon } from 'astro-icon/components';
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HomeButton from '../../components/HomeButton.astro';
+import { AUTHOR_NAME, AUTHOR_NICKNAME, SITE_URL, SOCIAL_LINKS } from '../../consts';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('project');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const isSvg = project.data.image.format === 'svg';
+const ProjectSvg = project.data.image as unknown as SvgComponent;
+
+const softwareJsonLD: Record<string, unknown> = {
+  '@type': 'SoftwareApplication',
+  name: project.data.title,
+  description: project.data.description,
+  url: project.data.url ?? `${SITE_URL}/project/${project.id}`,
+  applicationCategory: project.data.category ?? 'DeveloperApplication',
+  operatingSystem: 'Web',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  author: {
+    '@id': `${SITE_URL}/#person`,
+  },
+  keywords: project.data.techStack.join(', '),
+};
+
+if (project.data.gitUrl) {
+  softwareJsonLD.sameAs = project.data.gitUrl;
+}
+---
+
+<BaseLayout
+  title={`${project.data.title} | ${AUTHOR_NICKNAME}`}
+  description={project.data.description}
+  customJsonLD={softwareJsonLD}
+>
+  <main class='flex flex-col mx-auto py-12 max-w-2xl px-4'>
+    <article class='space-y-6'>
+      <header class='space-y-3'>
+        <div class='mb-2' transition:animate="fade">
+          <HomeButton href='/project' label='Back to projects' className='w-fit opacity-80' />
+        </div>
+        <h1 class='text-3xl font-bold'>{project.data.title}</h1>
+        <p class='text-base opacity-80'>{project.data.description}</p>
+
+        <div class='flex flex-wrap items-center gap-2 pt-1'>
+          <span class='badge badge-sm badge-success badge-outline'>Free to use</span>
+          {project.data.gitUrl && <span class='badge badge-sm badge-outline'>Open source</span>}
+          {project.data.techStack.map((tech: string) => (
+            <span class='badge badge-sm'>{tech}</span>
+          ))}
+        </div>
+
+        <div class='flex flex-wrap items-center gap-3 pt-2'>
+          {project.data.url && (
+            <a
+              href={project.data.url}
+              target='_blank'
+              rel='noopener noreferrer'
+              class='btn btn-sm btn-primary'
+              data-ga-event='project_link_click'
+              data-ga-project={project.data.title}
+              data-ga-link-type='live'
+            >
+              <Icon name='lucide:globe' size={16} aria-hidden='true' />
+              Use {project.data.title}
+            </a>
+          )}
+          {project.data.gitUrl && (
+            <a
+              href={project.data.gitUrl}
+              target='_blank'
+              rel='noopener noreferrer'
+              class='btn btn-sm btn-outline'
+              data-ga-event='project_link_click'
+              data-ga-project={project.data.title}
+              data-ga-link-type='github'
+            >
+              <Icon name='lucide:github' size={16} aria-hidden='true' />
+              View Source on GitHub
+            </a>
+          )}
+        </div>
+      </header>
+
+      <div class='rounded-box border border-base-300 bg-base-100 p-6 flex items-center justify-center max-h-64 overflow-hidden'>
+        {isSvg ? (
+          <ProjectSvg class='max-h-48 w-auto' aria-hidden='true' />
+        ) : (
+          <Image src={project.data.image} width={480} class='max-h-48 w-auto object-contain rounded' alt={project.data.title} />
+        )}
+      </div>
+
+      <section aria-labelledby='project-overview' class='prose prose-sm'>
+        <h2 id='project-overview'>Overview &amp; Technical Details</h2>
+        <Content />
+      </section>
+
+      <aside class='rounded-box border border-base-300 p-4 text-sm space-y-2'>
+        <p class='font-semibold'>Built by {AUTHOR_NAME} ({AUTHOR_NICKNAME})</p>
+        <p class='opacity-80'>
+          Looking for a full-stack or frontend engineer who ships fast, reliable tools? See my <a href='/about' class='link'>work experience</a>, <a href='/Kenil-Sudani-Resume.pdf' target='_blank' rel='noopener noreferrer' class='link'>resume</a>, or reach out at <a href={`mailto:${SOCIAL_LINKS.email}`} class='link'>{SOCIAL_LINKS.email}</a>.
+        </p>
+      </aside>
+    </article>
+
+    <div class='divider my-8' transition:animate="fade"></div>
+    <HomeButton className='w-fit' />
+  </main>
+</BaseLayout>

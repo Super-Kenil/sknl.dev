@@ -5,6 +5,7 @@ description: 'Injects Meta Ray-Ban metadata into images for Instagram Spin View'
 image: '../../assets/images/metarayban.webp'
 url: 'https://metarayban.sknl.dev'
 gitUrl: 'https://github.com/Super-Kenil/metarayban'
+category: 'MultimediaApplication'
 techStack: 'React,Tailwind,Bun,TypeScript'
 imgParentClass: 'w-auto h-40'
 ---

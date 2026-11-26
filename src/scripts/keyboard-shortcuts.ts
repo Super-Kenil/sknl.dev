@@ -22,10 +22,27 @@ if (!(window as SiteWindow).siteKeyboardShortcutsBound) {
     if (event.defaultPrevented || event.isComposing || event.repeat) return;
     if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
 
+    const searchModal = document.getElementById('ai-search-modal') as
+      | (HTMLElement & { isModalOpen?: () => boolean })
+      | null;
+    if (searchModal?.isModalOpen?.()) {
+      return;
+    }
+
+    const composedEditable = event.composedPath().some(
+      node =>
+        node instanceof HTMLElement &&
+        (node.isContentEditable ||
+          node.matches('input, textarea, select, [contenteditable=""], [contenteditable="true"]'))
+    );
+    if (composedEditable) {
+      return;
+    }
+
     const target = event.target;
     if (target instanceof HTMLElement && (
       target.isContentEditable ||
-      target.closest('input, textarea, select, [contenteditable=""], [contenteditable="true"]')
+      target.closest('input, textarea, select, search-modal-snippet, [contenteditable=""], [contenteditable="true"]')
     )) {
       return;
     }

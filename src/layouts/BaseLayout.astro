@@ -3,6 +3,7 @@ import { ClientRouter } from 'astro:transitions';
 
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import MainHead from '../components/MainHead.astro';
+import SearchModal from '../components/SearchModal.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import ThemePicker from '../components/ThemePicker.astro';
 
@@ -17,11 +18,10 @@ const {showGlobalThemePicker = true} = Astro.props;
     <ClientRouter />
   </head>
   <body class='min-h-dvh flex flex-col font-[Inter_Tight] container mx-auto'>
-    {showGlobalThemePicker && (
-      <div class='fixed top-4 right-4 z-50'>
-        <ThemePicker />
-      </div>
-    )}
+    <div class='fixed top-4 right-4 z-50 flex items-center gap-1'>
+      <SearchModal />
+      {showGlobalThemePicker && <ThemePicker />}
+    </div>
     <slot />
     <SiteFooter />
     <script src='../scripts/keyboard-shortcuts.ts'></script>

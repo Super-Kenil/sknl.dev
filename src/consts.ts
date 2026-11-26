@@ -40,3 +40,10 @@ export const AGENT_SEARCH_CONFIG = {
 	supportedMethods: ['GET', 'QUERY'] as const,
 	documentation: 'https://developers.cloudflare.com/ai-search/how-to/search-for-agents/',
 } as const;
+
+export const AI_SEARCH_CONFIG = {
+	publicBaseUrl: 'https://d8d3ea85-62d6-43cf-a880-2be873706ff7.search.ai.cloudflare.com/',
+	customBaseUrl: `${SITE_URL}/`,
+	snippetScriptUrl:
+		'https://d8d3ea85-62d6-43cf-a880-2be873706ff7.search.ai.cloudflare.com/assets/v0.0.40/search-snippet.es.js',
+} as const;

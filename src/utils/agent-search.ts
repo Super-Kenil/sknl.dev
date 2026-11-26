@@ -84,7 +84,12 @@ export function prefersMarkdown(acceptHeader: string | null): boolean {
  * Maps an HTML page pathname to its static .md mirror asset path, or null for non-HTML assets.
  */
 export function resolveMarkdownAssetPath(pathname: string): string | null {
-  if (pathname.startsWith('/.well-known/') || pathname.startsWith('/_astro/')) {
+  if (
+    pathname.startsWith('/.well-known/') ||
+    pathname.startsWith('/_astro/') ||
+    pathname === '/search' ||
+    pathname === '/mcp'
+  ) {
     return null;
   }
 

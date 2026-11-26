@@ -1,0 +1,120 @@
+---
+import { Icon } from 'astro-icon/components';
+
+import { AI_SEARCH_CONFIG, SITE_URL } from '../consts';
+---
+
+<button
+  id="open-search"
+  type="button"
+  class="btn btn-ghost btn-sm gap-1.5 px-2"
+  data-search-modal-trigger
+  aria-label="Search site (Ctrl+K or Cmd+K)"
+  title="Search site (Ctrl+K or Cmd+K)"
+>
+  <Icon name="lucide:search" size={16} aria-hidden="true" />
+  <span class="hidden sm:inline text-xs font-medium">Search</span>
+  <kbd class="kbd kbd-xs" aria-hidden="true" data-search-shortcut-kbd>Ctrl K</kbd>
+</button>
+
+<search-modal-snippet
+  id="ai-search-modal"
+  transition:persist="ai-search-modal"
+  api-url={AI_SEARCH_CONFIG.customBaseUrl}
+  placeholder="Search projects, posts, experience..."
+  shortcut="k"
+  use-meta-key="true"
+  max-results="20"
+  max-render-results="8"
+  debounce-ms="250"
+  show-url="true"
+  show-date="true"
+  theme="auto"
+></search-modal-snippet>
+
+<script is:inline type="module" src={AI_SEARCH_CONFIG.snippetScriptUrl}></script>
+
+<script
+  is:inline
+  define:vars={{
+    customBaseUrl: AI_SEARCH_CONFIG.customBaseUrl,
+    publicBaseUrl: AI_SEARCH_CONFIG.publicBaseUrl,
+    customHost: new URL(SITE_URL).hostname,
+  }}
+>
+  function syncSearchModalConfig() {
+    const modal = document.getElementById('ai-search-modal');
+    if (modal) {
+      const targetUrl = window.location.hostname === customHost ? customBaseUrl : publicBaseUrl;
+      if (modal.getAttribute('api-url') !== targetUrl) {
+        modal.setAttribute('api-url', targetUrl);
+      }
+    }
+
+    const isApple = /Mac|iPhone|iPad|iPod/i.test(navigator.platform || navigator.userAgent);
+    document.querySelectorAll('[data-search-shortcut-kbd]').forEach((kbd) => {
+      kbd.textContent = isApple ? '⌘K' : 'Ctrl K';
+    });
+  }
+
+  function openSearchModal() {
+    const modal = document.getElementById('ai-search-modal');
+    if (!modal) return;
+    if (typeof modal.open === 'function') {
+      modal.open();
+    } else if (window.customElements && typeof window.customElements.whenDefined === 'function') {
+      window.customElements.whenDefined('search-modal-snippet').then(() => {
+        const upgraded = document.getElementById('ai-search-modal');
+        if (upgraded && typeof upgraded.open === 'function') {
+          upgraded.open();
+        }
+      });
+    }
+  }
+
+  if (!window.__aiSearchModalBound) {
+    window.__aiSearchModalBound = true;
+
+    document.addEventListener('click', (event) => {
+      if (!(event.target instanceof Element)) return;
+      if (!event.target.closest('[data-search-modal-trigger]')) return;
+      openSearchModal();
+    });
+
+    document.addEventListener('result-select', (event) => {
+      const target = event.target;
+      if (target && target.id === 'ai-search-modal' && typeof target.close === 'function') {
+        target.close();
+      }
+    });
+
+    document.addEventListener('astro:before-preparation', () => {
+      const modal = document.getElementById('ai-search-modal');
+      if (modal && typeof modal.isModalOpen === 'function' && modal.isModalOpen() && typeof modal.close === 'function') {
+        modal.close();
+      }
+    });
+
+    document.addEventListener('astro:page-load', syncSearchModalConfig);
+  }
+
+  syncSearchModalConfig();
+</script>
+
+<style is:global>
+  search-modal-snippet {
+    --search-snippet-primary-color: var(--color-primary);
+    --search-snippet-primary-hover: color-mix(in oklab, var(--color-primary) 85%, var(--color-base-content));
+    --search-snippet-focus-ring: color-mix(in oklab, var(--color-primary) 25%, transparent);
+    --search-snippet-background: var(--color-base-100);
+    --search-snippet-surface: var(--color-base-200);
+    --search-snippet-hover-background: var(--color-base-300);
+    --search-snippet-text-color: var(--color-base-content);
+    --search-snippet-text-secondary: color-mix(in oklab, var(--color-base-content) 65%, transparent);
+    --search-snippet-text-description: color-mix(in oklab, var(--color-base-content) 80%, transparent);
+    --search-snippet-border-color: var(--color-base-300);
+    --search-snippet-font-family: 'Inter Tight', system-ui, sans-serif;
+    --search-snippet-border-radius: var(--radius-box, 1rem);
+    --search-snippet-button-min-border-radius: var(--radius-field, 0.5rem);
+  }
+</style>
